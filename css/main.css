@@ -2,6 +2,34 @@ body {
   background-color: grey;
 }
 
+header {
+  /* border: 20px solid black; */
+}
+
+/* TODOs:  */
+/* CSS create a simple design NavBar for mobile */
+
 header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background-color: aquamarine;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: space-around;
+
+  /* border: 20px solid black; */
+  /* background-color: bisque; */
+}
+
+header nav ul li {
+  margin-inline: 2vw;
+}
+
+header nav ul li:hover {
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
 }
