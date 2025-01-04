@@ -1,3 +1,7 @@
 body {
   background-color: grey;
 }
+
+header nav {
+  background-color: aquamarine;
+}

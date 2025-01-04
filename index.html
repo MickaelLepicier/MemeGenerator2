@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/main.css" />
   </head>
-  <body>
+  <body onload="onInit()">
     <!-- LOGO Gallery Saved About -->
     <header>
       <nav class="navbar">
         <a href="/" class="logo">
           Logo
-          <img src="/" alt="img Logo" />
+          <!-- <img src="/" alt="img Logo" /> -->
         </a>
 
         <ul class="nav-pages">
@@ -24,9 +24,14 @@
       </nav>
     </header>
 
-     <!-- Gallery Editor Saved About -->
-    <section class="gallery-page"></section>
-    <section class="editor-page"></section>
+    <!-- Gallery Editor Saved About -->
+    <section class="gallery-page" hidden>
+      <img class="image-test" src="img/003.jpg" alt="" />
+    </section>
+
+    <section class="editor-page">
+      <canvas class="meme-editor"> </canvas>
+    </section>
     <section class="saved-page"></section>
     <section class="about-page"></section>
 
@@ -35,7 +40,7 @@
     <script src="js/services/util.service.js"></script>
     <script src="js/services/main.js"></script>
 
-    
-    <script src="js/main.controller.js"></script>
+    <script src="js/gallery.controller.js"></script>
+    <script src="js/meme.controller.js"></script>
   </body>
 </html>
