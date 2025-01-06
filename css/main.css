@@ -9,11 +9,104 @@ header {
 /* TODOs:  */
 /* CSS create a simple design NavBar for mobile */
 
-.navbar {
-  display: flex;
+.menu-bar {
+  width: 45px;
+  height: 40px;
+  margin: 30px 0 20px 20px;
+  cursor: pointer;
+}
+
+.bar {
+  height: 5px;
+  width: 100%;
+  background-color: #dc052d;
+  display: block;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+
+.bar1 {
+  transform: translateY(-4px);
+}
+
+.bar3 {
+  transform: translateY(4px);
+}
+
+.menu-bg,
+.menu {
+  top: 0;
+  left: 0;
+  position: absolute;
+  /* width: 100%; */
+}
+
+.menu-bg {
+  z-index: 1;
+  width: 0;
+  height: 0;
+  margin: 30px 0 20px 20px;
+  background: radial-gradient(circle, aquamarine, aquamarine);
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.change {
+  display: block;
+}
+
+.change .bar {
+  background-color: white;
+}
+
+.change .bar1 {
+  transform: translateY(4px) rotateZ(-45deg);
+}
+
+.change .bar2 {
+  opacity: 0;
+}
+
+.change .bar3 {
+  transform: translateY(-6px) rotateZ(45deg);
+}
+
+.change-bg {
+  width: 520px;
+  height: 460px;
+  transform: translate(90%, -30%);
+}
+
+/* header{
+    display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: aquamarine;
+
+} */
+
+.menu {
+  /* display: flex;
+  align-items: center;
+  justify-content: space-between;
+  */
+  background-color: aquamarine;
+
+  z-index: 2;
+}
+
+.navbar {
+  /* display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: aquamarine; */
+
+  /* test */
+
+  transition: 0.3s ease;
+  display: none;
+
+  /* z-index: 2; */
 }
 
 .logo {
@@ -21,15 +114,35 @@ header {
 }
 
 .nav-pages {
-  display: flex;
+  /* display: flex; */
+
+  /* test */
+  transition: 0.3s ease;
+  display: none;
 }
 
-.nav-pages li {
-  margin-inline: 2vw;
+/* test */
+.navbar ul {
+  padding: 0 22px;
 }
 
-.nav-pages li:hover {
+.navbar li {
+  /* margin-inline: 2vw; */
+
+  /* test */
+  list-style: none;
+  padding: 12px 0;
+}
+
+.navbar li a {
   color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  color: white;
+  font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -44,7 +157,7 @@ header {
   gap: 1em;
 
   padding: 1em;
-  
+
   /* column-count: 1;
   gap: 1em; */
 
@@ -77,3 +190,110 @@ header {
     column-count: 3;
   }
 } */
+
+/* test */
+
+#menu {
+  z-index: 2;
+}
+
+#menu-bar {
+  width: 45px;
+  height: 40px;
+  margin: 30px 0 20px 20px;
+  cursor: pointer;
+}
+
+.bar {
+  height: 5px;
+  width: 100%;
+  background-color: #dc052d;
+  display: block;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+
+#bar1 {
+  transform: translateY(-4px);
+}
+
+#bar3 {
+  transform: translateY(4px);
+}
+
+.nav {
+  transition: 0.3s ease;
+  display: none;
+}
+
+.nav ul {
+  padding: 0 22px;
+}
+
+.nav li {
+  list-style: none;
+  padding: 12px 0;
+}
+
+.nav li {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.nav li:hover {
+  font-weight: bold;
+}
+
+.menu-bg,
+#menu {
+  top: 0;
+  right: 10px;
+  position: absolute;
+}
+
+.menu-bg {
+  z-index: 1;
+  width: 0;
+  height: 0;
+  margin: 30px 0 20px 20px;
+  background: radial-gradient(circle, aquamarine, aquamarine);
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.change {
+  display: block;
+}
+
+.change .bar {
+  background-color: white;
+}
+
+.change #bar1 {
+  transform: translateY(4px) rotateZ(-45deg);
+}
+
+.change #bar2 {
+  opacity: 0;
+}
+
+.change #bar3 {
+  transform: translateY(-6px) rotateZ(45deg);
+}
+
+.change-bg {
+  width: 520px;
+  height: 460px;
+  transform: translate(90%, -20%);
+}
+
+header {
+  display: flex;
+  align-items: center;
+
+  height: 5em;
+  background-color: aquamarine;
+}
+
+/* TODO - Check how to do that It will start from the icon */

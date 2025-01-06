@@ -17,6 +17,14 @@ function showPage(page) {
   sectionEl.hidden = false
 }
 
+// Menu func
+
+function menuOnClick() {
+  document.querySelector('.menu-bar').classList.toggle('change')
+  document.querySelector('.navbar').classList.toggle('change')
+  document.querySelector('.menu-bg').classList.toggle('change-bg')
+}
+
 // NabNar func
 
 function onNav(page) {
@@ -46,4 +54,12 @@ function getRandomInt(min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive
+}
+
+// test
+
+function menuOnClick() {
+  document.getElementById('menu-bar').classList.toggle('change')
+  document.getElementById('nav').classList.toggle('change')
+  document.getElementById('menu-bg').classList.toggle('change-bg')
 }
