@@ -6,39 +6,85 @@
 let gCanvas
 let gCtx
 
-onMemeEditor()
-
 function onMemeEditor() {
-  gCanvas = document.querySelector('.meme-editor')
+  gCanvas = document.querySelector('canvas')
   gCtx = gCanvas.getContext('2d')
 
-  //   clearCanvas()
-  memeController()
+  // const meme = getMeme()
+
+  // renderMeme(meme)
+  // renderEditor(meme)
+
+  // memeController()
 }
 
 function memeController() {
-  const imageTest = document.querySelector('.image-test')
+  const meme = getMeme()
 
-  clearCanvas()
-  renderMeme(imageTest, 'text here')
+  renderMeme(meme)
+  renderEditor(meme)
+
+  onNav('editor')
 }
 
-function renderMeme(img, txt) {
-  // Add image on the Canvas
+function clearCanvas() {
+  gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+}
+
+function renderMeme(meme) {
+  const { selectedImgId, selectedLineIdx, lines } = meme
+
+  const imgObj = gImgs.find((img) => img.id === selectedImgId)
+
+  if (!imgObj) {
+    console.error('Image not found')
+    return
+  }
+
+  clearCanvas()
+
+  const img = new Image()
+  img.src = imgObj.url
+
+  img.onload = () => {
+    // Add image & texts on the Canvas
+    drawImg(img)
+    drawTxts(lines)
+  }
+}
+
+function drawImg(img) {
   gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+}
+
+function drawTxts(lines) {
+  lines.forEach(renderTxt)
+}
+
+function renderTxt(line) {
+  const { txt, pos, size, color } = line
 
   // Add Text on the Canvas
-  gCtx.font = '30px Arial'
-  gCtx.fillStyle = 'white'
+  gCtx.font = `${size}px Arial`
+  gCtx.fillStyle = color
   gCtx.strokeStyle = 'black'
   gCtx.lineWidth = 2
   gCtx.textAlign = 'center'
+
+  // TODO - set the pos x & y
   const x = gCanvas.width / 2
   const y = 50 // position on the top
   gCtx.fillText(txt, x, y)
   gCtx.strokeText(txt, x, y)
 }
 
-function clearCanvas() {
-  gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+function renderEditor(meme) {
+  const { lines } = meme
+  const txt = lines[0].txt
+  renderInputTxt(txt)
+}
+
+function renderInputTxt(txt) {
+  const inputTxt = document.querySelector('.input-txt')
+  inputTxt.value = txt
 }

@@ -25,20 +25,33 @@
     </header>
 
     <!-- Gallery Editor Saved About -->
-    <section class="gallery-page" hidden>
-      <img class="image-test" src="img/003.jpg" alt="" />
+    <section class="gallery-page">
+      <input type="search" oninput="" placeholder="Search" />
+      <div class="keyword" onclick=""></div>
+
+      <section class="gallery-images">
+        <!-- <img class="gallery-image" src="img/2.jpg" alt="img" onclick="" />
+        <img class="gallery-image" src="img/003.jpg" alt="img" onclick="" /> -->
+      </section>
     </section>
 
     <section class="editor-page">
-      <canvas class="meme-editor"> </canvas>
+      <section class="meme">
+        <canvas> </canvas>
+      </section>
+
+      <section class="editor">
+        <input class="input-txt" type="text" oninput="setTxt(value)" />
+      </section>
     </section>
     <section class="saved-page"></section>
     <section class="about-page"></section>
 
-    <footer>Creater by Mickael Lepicier</footer>
+    <footer>Created by ©Mickael-Lepicier</footer>
 
-    <script src="js/services/util.service.js"></script>
-    <script src="js/services/main.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script src="js/services/meme.service.js"></script>
 
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>
