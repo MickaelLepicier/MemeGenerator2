@@ -65,6 +65,10 @@ function drawTxts(lines) {
 
 function renderTxt(line) {
   const { txt, pos, size, color } = line
+  // {
+  // txt: 'Go Go America!', pos: { x: 0, y: 0 },
+  // size: 30, color: 'red'
+  // }
 
   // Add Text on the Canvas
   gCtx.font = `${size}px Arial`
@@ -96,6 +100,14 @@ function onDownload(elLink) {
   elLink.href = imgContent
 }
 
-function onColor(ElColor){
+function onColor(ElColor) {
+  // TODO - later on find a specific line
+  // const findLine =
 
+  const line = gMeme.lines[0]
+  line.color = ElColor.value
+
+  renderTxt(line)
+
+  // memeController()
 }

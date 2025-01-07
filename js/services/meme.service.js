@@ -13,6 +13,8 @@ let gMeme = {
   ]
 }
 
+// let currLine = {} // maybe?
+
 let gKeywordSearchCountMap = { fun: 1, funny: 3, man: 1, woman: 2 }
 
 function getMeme() {
