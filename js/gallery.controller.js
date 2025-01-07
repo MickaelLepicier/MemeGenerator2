@@ -30,10 +30,9 @@ function renderImgs(imgs) {
 }
 
 function renderImg(img) {
-  // TODO onclick
-
   const { id, url, keywords } = img
   const kw = keywords.join(' ')
+
   return `<img class="gallery-image" data-id="${id}" data-keywords="${kw}" src="${url}" alt="img" onclick="onImgSelect(${id})" />`
 }
 

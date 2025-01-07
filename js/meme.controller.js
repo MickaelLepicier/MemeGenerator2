@@ -3,12 +3,12 @@
 // put on the init onMemeEditor()
 // click an img - Run memeController()
 
-let gCanvas
+let gElCanvas
 let gCtx
 
 function onMemeEditor() {
-  gCanvas = document.querySelector('canvas')
-  gCtx = gCanvas.getContext('2d')
+  gElCanvas = document.querySelector('canvas')
+  gCtx = gElCanvas.getContext('2d')
 
   // const meme = getMeme()
 
@@ -24,11 +24,11 @@ function memeController() {
   renderMeme(meme)
   renderEditor(meme)
 
-  onNav('editor')
+  onNav('meme-editor')
 }
 
 function clearCanvas() {
-  gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+  gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 function renderMeme(meme) {
@@ -54,7 +54,9 @@ function renderMeme(meme) {
 }
 
 function drawImg(img) {
-  gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+  gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
+
+  gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 function drawTxts(lines) {
@@ -72,7 +74,7 @@ function renderTxt(line) {
   gCtx.textAlign = 'center'
 
   // TODO - set the pos x & y
-  const x = gCanvas.width / 2
+  const x = gElCanvas.width / 2
   const y = 50 // position on the top
   gCtx.fillText(txt, x, y)
   gCtx.strokeText(txt, x, y)
@@ -87,4 +89,13 @@ function renderEditor(meme) {
 function renderInputTxt(txt) {
   const inputTxt = document.querySelector('.input-txt')
   inputTxt.value = txt
+}
+
+function onDownload(elLink) {
+  const imgContent = gElCanvas.toDataURL('image/jpeg')
+  elLink.href = imgContent
+}
+
+function onColor(ElColor){
+
 }

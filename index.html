@@ -45,13 +45,21 @@
       </section>
     </section>
 
-    <section class="editor-page">
+    <section class="meme-editor-page">
       <section class="meme">
         <canvas> </canvas>
       </section>
 
       <section class="editor">
         <input class="input-txt" type="text" oninput="setTxt(value)" />
+        <input type="color" oninput="onColor(this)" />
+
+        <a
+          class="download btn"
+          download="My Special Meme"
+          onclick="onDownload(this)"
+          >Download</a
+        >
       </section>
     </section>
     <section class="saved-page"></section>

@@ -1,38 +1,43 @@
 'use strict'
 
+// NabNar func
+
+function onNav(page) {
+  const allPages = ['gallery', 'meme-editor', 'saved', 'about']
+  const pages = allPages.filter((p) => p !== page)
+
+  const isClassChange = document.querySelector('.change')
+  if (isClassChange) menuOnClick()
+
+  hidePages(pages)
+  showPage(page)
+}
+
 function hidePages(pages) {
   pages.forEach(hidePage)
 }
 
 function hidePage(page) {
   const sectionEl = document.querySelector(`.${page}-page`)
+  sectionEl.classList.add('hidden')
 
   // sectionEl.style.display = 'none'
-  sectionEl.setAttribute('hidden', true)
+  // sectionEl.setAttribute('hidden', true)
 }
 
 function showPage(page) {
   const sectionEl = document.querySelector(`.${page}-page`)
 
-  sectionEl.hidden = false
+  sectionEl.classList.remove('hidden')
+  // sectionEl.hidden = false
 }
 
 // Menu func
 
-// function menuOnClick() {
-//   document.querySelector('.menu-bar').classList.toggle('change')
-//   document.querySelector('.navbar').classList.toggle('change')
-//   document.querySelector('.menu-bg').classList.toggle('change-bg')
-// }
-
-// NabNar func
-
-function onNav(page) {
-  const allPages = ['gallery', 'editor', 'saved', 'about']
-  const pages = allPages.filter((p) => p !== page)
-
-  hidePages(pages)
-  showPage(page)
+function menuOnClick() {
+  document.querySelector('.btn-bg').classList.toggle('change')
+  document.querySelector('.navbar').classList.toggle('change')
+  document.querySelector('.menu-bg').classList.toggle('change-bg')
 }
 
 // Utils Service
@@ -54,12 +59,4 @@ function getRandomInt(min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
   return Math.floor(Math.random() * (max - min + 1)) + min //The maximum is inclusive and the minimum is inclusive
-}
-
-// test
-
-function menuOnClick() {
-  document.querySelector('.btn-bg').classList.toggle('change')
-  document.querySelector('.navbar').classList.toggle('change')
-  document.querySelector('.menu-bg').classList.toggle('change-bg')
 }
