@@ -15,24 +15,26 @@
         <!-- <img src="/" alt="img Logo" /> -->
       </a>
 
-      <div id="menu">
-        <div id="menu-bar" onclick="menuOnClick()">
-          <div id="bar1" class="bar"></div>
-          <div id="bar2" class="bar"></div>
-          <div id="bar3" class="bar"></div>
+      <section class="nav-container">
+        <div class="btn-bg" onclick="menuOnClick()">
+          <span class="bar bar1"></span>
+          <span class="bar bar2"></span>
+          <span class="bar bar3"></span>
         </div>
-        <nav class="nav" id="nav">
+        <nav class="navbar">
           <ul>
             <li onclick="onNav('gallery')">Gallery</li>
             <li onclick="onNav('saved')">Saved</li>
             <li onclick="onNav('about')">About</li>
           </ul>
         </nav>
-      </div>
+      </section>
 
-      <div class="menu-bg" id="menu-bg"></div>
+      <div class="menu-bg"></div>
     </header>
+
     <!-- Gallery Editor Saved About -->
+
     <section class="gallery-page">
       <input type="search" oninput="" placeholder="Search" />
       <div class="keyword" onclick=""></div>

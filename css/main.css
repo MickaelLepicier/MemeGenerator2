@@ -3,23 +3,34 @@ body {
 }
 
 header {
-  /* border: 20px solid black; */
+  display: flex;
+  align-items: center;
+
+  height: 5em;
+  margin-bottom: 1em;
+
+  background-color: #66cfac;
 }
 
-/* TODOs:  */
-/* CSS create a simple design NavBar for mobile */
+.logo {
+  margin-inline: 5vw;
+}
 
-.menu-bar {
+.nav-container {
+  z-index: 2;
+}
+
+.btn-bg {
   width: 45px;
   height: 40px;
-  margin: 30px 0 20px 20px;
+  margin: 30px;
   cursor: pointer;
 }
 
 .bar {
   height: 5px;
   width: 100%;
-  background-color: #dc052d;
+  background-color: #220006;
   display: block;
   border-radius: 5px;
   transition: 0.3s ease;
@@ -33,12 +44,30 @@ header {
   transform: translateY(4px);
 }
 
+.navbar {
+  transition: 0.3s ease;
+  display: none;
+}
+
+.navbar li {
+  padding: 12px 0;
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.navbar li:hover {
+  color: black;
+
+  cursor: pointer;
+  transition: 0.8s;
+}
+
 .menu-bg,
-.menu {
+.nav-container {
   top: 0;
-  left: 0;
+  right: 10px;
   position: absolute;
-  /* width: 100%; */
 }
 
 .menu-bg {
@@ -46,7 +75,7 @@ header {
   width: 0;
   height: 0;
   margin: 30px 0 20px 20px;
-  background: radial-gradient(circle, aquamarine, aquamarine);
+  background: radial-gradient(circle, #66cfac, #66cfac);
   border-radius: 50%;
   transition: 0.3s ease;
 }
@@ -74,82 +103,53 @@ header {
 .change-bg {
   width: 520px;
   height: 460px;
-  transform: translate(90%, -30%);
+  transform: translate(60%, -15%);
+  transition: 0.3s ease;
 }
 
-/* header{
+/* For DeskTop */
+
+@media (width > 1000px) {
+  .logo {
+    margin-inline: 0;
+  }
+
+  header {
+    justify-content: space-between;
+    padding: 0 5vw;
+  }
+
+  .nav-container {
+    position: static;
     display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: aquamarine;
+    gap: 2em;
+  }
 
-} */
+  .navbar {
+    display: block;
+  }
 
-.menu {
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between;
-  */
-  background-color: aquamarine;
+  .navbar ul {
+    display: flex;
+    gap: 5em;
+  }
 
-  z-index: 2;
+  .navbar li {
+    font-size: 1.2em;
+
+    color: gold;
+  }
+
+  .btn-bg {
+    display: none;
+  }
+
+  .menu-bg {
+    display: none;
+  }
 }
+/* Gallery Page - Mobile First */
 
-.navbar {
-  /* display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: aquamarine; */
-
-  /* test */
-
-  transition: 0.3s ease;
-  display: none;
-
-  /* z-index: 2; */
-}
-
-.logo {
-  margin-inline: 2vw;
-}
-
-.nav-pages {
-  /* display: flex; */
-
-  /* test */
-  transition: 0.3s ease;
-  display: none;
-}
-
-/* test */
-.navbar ul {
-  padding: 0 22px;
-}
-
-.navbar li {
-  /* margin-inline: 2vw; */
-
-  /* test */
-  list-style: none;
-  padding: 12px 0;
-}
-
-.navbar li a {
-  color: white;
-  font-size: 20px;
-  text-decoration: none;
-}
-
-.navbar li a:hover {
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-/* Gallery Page */
-
-/* Mobile First  */
 
 .gallery-images {
   display: grid;
@@ -158,17 +158,12 @@ header {
 
   padding: 1em;
 
-  /* column-count: 1;
-  gap: 1em; */
-
-  /* border: 10px solid black; */
 }
 
 .gallery-image {
   border-radius: 10px;
   box-shadow: 1px 1px 31px 8px rgba(0, 0, 0, 0.75);
 
-  /* margin-bottom: 1em; */
 }
 
 .gallery-image:hover {
@@ -177,123 +172,17 @@ header {
   box-shadow: 1px 1px 31px 8px rgba(255, 215, 0, 0.75);
 
   transition: 0.5s;
-  /* margin-bottom: 1em; */
-}
-/* @media (width > 1000px) {
-  .gallery-images {
-    column-count: 5;
-  }
 }
 
-@media (width > 500px) {
-  .gallery-images {
-    column-count: 3;
-  }
-} */
 
-/* test */
 
-#menu {
-  z-index: 2;
-}
+/* TODOs
 
-#menu-bar {
-  width: 45px;
-  height: 40px;
-  margin: 30px 0 20px 20px;
-  cursor: pointer;
-}
+- make the editor-page Mobile first
+- make the editor-page for Desktop
 
-.bar {
-  height: 5px;
-  width: 100%;
-  background-color: #dc052d;
-  display: block;
-  border-radius: 5px;
-  transition: 0.3s ease;
-}
+*/
 
-#bar1 {
-  transform: translateY(-4px);
-}
+/* Editor Page - Mobile First */
 
-#bar3 {
-  transform: translateY(4px);
-}
-
-.nav {
-  transition: 0.3s ease;
-  display: none;
-}
-
-.nav ul {
-  padding: 0 22px;
-}
-
-.nav li {
-  list-style: none;
-  padding: 12px 0;
-}
-
-.nav li {
-  color: white;
-  font-size: 20px;
-  text-decoration: none;
-}
-
-.nav li:hover {
-  font-weight: bold;
-}
-
-.menu-bg,
-#menu {
-  top: 0;
-  right: 10px;
-  position: absolute;
-}
-
-.menu-bg {
-  z-index: 1;
-  width: 0;
-  height: 0;
-  margin: 30px 0 20px 20px;
-  background: radial-gradient(circle, aquamarine, aquamarine);
-  border-radius: 50%;
-  transition: 0.3s ease;
-}
-
-.change {
-  display: block;
-}
-
-.change .bar {
-  background-color: white;
-}
-
-.change #bar1 {
-  transform: translateY(4px) rotateZ(-45deg);
-}
-
-.change #bar2 {
-  opacity: 0;
-}
-
-.change #bar3 {
-  transform: translateY(-6px) rotateZ(45deg);
-}
-
-.change-bg {
-  width: 520px;
-  height: 460px;
-  transform: translate(90%, -20%);
-}
-
-header {
-  display: flex;
-  align-items: center;
-
-  height: 5em;
-  background-color: aquamarine;
-}
-
-/* TODO - Check how to do that It will start from the icon */
+s

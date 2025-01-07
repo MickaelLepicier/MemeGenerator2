@@ -19,11 +19,11 @@ function showPage(page) {
 
 // Menu func
 
-function menuOnClick() {
-  document.querySelector('.menu-bar').classList.toggle('change')
-  document.querySelector('.navbar').classList.toggle('change')
-  document.querySelector('.menu-bg').classList.toggle('change-bg')
-}
+// function menuOnClick() {
+//   document.querySelector('.menu-bar').classList.toggle('change')
+//   document.querySelector('.navbar').classList.toggle('change')
+//   document.querySelector('.menu-bg').classList.toggle('change-bg')
+// }
 
 // NabNar func
 
@@ -59,7 +59,7 @@ function getRandomInt(min, max) {
 // test
 
 function menuOnClick() {
-  document.getElementById('menu-bar').classList.toggle('change')
-  document.getElementById('nav').classList.toggle('change')
-  document.getElementById('menu-bg').classList.toggle('change-bg')
+  document.querySelector('.btn-bg').classList.toggle('change')
+  document.querySelector('.navbar').classList.toggle('change')
+  document.querySelector('.menu-bg').classList.toggle('change-bg')
 }
