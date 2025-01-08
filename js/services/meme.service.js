@@ -9,7 +9,13 @@ let gMeme = {
   selectedImgId: 2,
   selectedLineIdx: 0,
   lines: [
-    { txt: 'Go Go America!', pos: { x: 0, y: 50 }, size: 30, color: 'red', selected:true }
+    {
+      txt: 'Go Go America!',
+      pos: { x: 0, y: 50 },
+      size: 30,
+      color: '#f20707',
+      selected: true
+    }
   ]
 }
 

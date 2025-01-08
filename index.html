@@ -52,15 +52,16 @@
 
       <section class="editor-container">
         <input class="input-txt" type="text" oninput="setTxt(value)" />
-        <button onclick="onAddLine()">+</button>
-        <button onclick="switchLine()">Switch</button>
+        <section class="edit-line">
+          <button onclick="onAddLine()">+</button>
+          <button onclick="switchLine()">Switch</button>
+        </section>
         <section class="edit-txt">
           <input type="color" class="input-color" oninput="onColor(this)" />
 
           <div class="txt-size-container">
             <input
               type="range"
-              class="txt-size"
               oninput="onSize(+this.value)"
               min="20"
               max="60"
@@ -71,6 +72,7 @@
               type="number"
               class="txt-size"
               oninput="onSize(+this.value)"
+              value="30"
             />
           </div>
         </section>

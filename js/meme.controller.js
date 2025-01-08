@@ -49,7 +49,7 @@ function renderMeme(meme) {
   img.onload = () => {
     // Add image & texts on the Canvas
     drawImg(img)
-    drawTxts(lines)
+    renderTxts(lines)
   }
 }
 
@@ -59,7 +59,7 @@ function drawImg(img) {
   gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function drawTxts(lines) {
+function renderTxts(lines) {
   lines.forEach(renderTxt)
 }
 
@@ -99,8 +99,8 @@ function renderTxt(line) {
   gCtx.strokeRect(xStart, yStart, xEnd, yEnd)
 
   // Update the text size input Element
-  const elTxtSize = document.querySelector('.txt-size')
-  elTxtSize.value = size
+  //   const elTxtSize = document.querySelector('.txt-size')
+  //   elTxtSize.value = size
 }
 
 function calcMeasurements(txt, txtHeight, padding, pos) {
@@ -161,8 +161,8 @@ function renderInputColor(color) {
 }
 
 function renderInputSize(size) {
-  const elInputsTxtSize = document.querySelectorAll('.txt-size')
-  elInputsTxtSize.forEach((i) => (i.value = size))
+  const elInputsTxtSize = document.querySelectorAll('.txt-size-container input')
+  elInputsTxtSize.forEach((input) => (input.value = size))
 }
 
 function onDownload(elLink) {
