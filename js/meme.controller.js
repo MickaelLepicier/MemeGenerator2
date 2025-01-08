@@ -18,13 +18,13 @@ function onMemeEditor() {
   // memeController()
 }
 
-function memeController() {
+function memeController(isNav = true) {
   const meme = getMeme()
 
   renderMeme(meme)
   renderEditor(meme)
 
-  onNav('meme-editor')
+  if (isNav) onNav('meme-editor')
 }
 
 function clearCanvas() {
@@ -64,11 +64,13 @@ function drawTxts(lines) {
 }
 
 function renderTxt(line) {
-  const { txt, pos, size, color } = line
+  const { txt, pos, size, color, selected } = line
   // {
   // txt: 'Go Go America!', pos: { x: 0, y: 0 },
   // size: 30, color: 'red'
   // }
+
+  //   clearTxt(line)
 
   // Add Text on the Canvas
   gCtx.font = `${size}px Arial`
@@ -78,21 +80,89 @@ function renderTxt(line) {
   gCtx.textAlign = 'center'
 
   // TODO - set the pos x & y
-  const x = gElCanvas.width / 2
-  const y = 50 // position on the top
+  const x = pos.x ? pos.x : gElCanvas.width / 2
+  const y = pos.y ? pos.y : 200 // position on the top
   gCtx.fillText(txt, x, y)
   gCtx.strokeText(txt, x, y)
+
+  const padding = 2
+  gCtx.strokeStyle = 'black'
+  gCtx.lineWidth = 2
+
+  if (selected) gCtx.strokeStyle = 'gold'
+
+  // calculate the text measurements (x & y)
+  const measurementsObj = calcMeasurements(txt, size, padding, { x, y })
+  const { xStart, yStart, xEnd, yEnd } = measurementsObj
+
+  // draw a frame to the text
+  gCtx.strokeRect(xStart, yStart, xEnd, yEnd)
+
+  // Update the text size input Element
+  const elTxtSize = document.querySelector('.txt-size')
+  elTxtSize.value = size
 }
 
+function calcMeasurements(txt, txtHeight, padding, pos) {
+  const { x, y } = pos
+
+  const txtMetrics = gCtx.measureText(txt)
+  const txtWidth = txtMetrics.width
+  //   const txtHeight = size
+
+  const xStart = x - txtWidth / 2 - padding
+  const yStart = y - txtHeight + padding
+  const xEnd = txtWidth + padding * 2
+  const yEnd = txtHeight + padding * 2
+
+  return { xStart, yStart, xEnd, yEnd }
+}
+
+// function clearTxt(line) {
+//   const { pos, size } = line
+
+//   // TODO - set the pos x & y
+//   const x = gElCanvas.width / 2
+//   const y = 50
+
+//   const padding = 10
+//   const txtWidth = gCtx.measureText(line.txt).width
+
+//   const xStart = x - txtWidth / 2 - padding
+//   const yStart = y - size - padding
+//   const xEnd = txtWidth + padding * 2
+//   const yEnd = size + padding * 2
+
+//   gCtx.clearRect(xStart, yStart, xEnd, yEnd)
+// }
+
 function renderEditor(meme) {
-  const { lines } = meme
-  const txt = lines[0].txt
+  const { selectedLineIdx, lines } = meme
+
+  //   const {txt, color, size} = lines[selectedLineIdx]
+
+  const txt = lines[selectedLineIdx].txt
+  const color = lines[selectedLineIdx].color
+  const size = lines[selectedLineIdx].size
+
   renderInputTxt(txt)
+  renderInputColor(color)
+  renderInputSize(size)
 }
 
 function renderInputTxt(txt) {
-  const inputTxt = document.querySelector('.input-txt')
-  inputTxt.value = txt
+  const elInputTxt = document.querySelector('.input-txt')
+  elInputTxt.value = txt
+}
+
+function renderInputColor(color) {
+  const elInputColor = document.querySelector('.input-color')
+  elInputColor.value = color
+}
+
+function renderInputSize(size) {
+  const elInputsTxtSize = document.querySelectorAll('.txt-size')
+  elInputsTxtSize.forEach((i) => (i.value = size))
 }
 
 function onDownload(elLink) {
@@ -100,14 +170,61 @@ function onDownload(elLink) {
   elLink.href = imgContent
 }
 
-function onColor(ElColor) {
-  // TODO - later on find a specific line
-  // const findLine =
+function onColor(elColor) {
+  const idx = gMeme.selectedLineIdx
+  const line = gMeme.lines[idx]
+  line.color = elColor.value
 
-  const line = gMeme.lines[0]
-  line.color = ElColor.value
+  //   renderTxt(line)
 
-  renderTxt(line)
+  memeController(false)
+}
 
-  // memeController()
+function onSize(val) {
+  const idx = gMeme.selectedLineIdx
+  const line = gMeme.lines[idx]
+  line.size = val
+
+  //   renderTxt(line)
+
+  memeController(false)
+}
+
+function onAddLine() {
+  // { txt: 'Go Go America!', pos: { x: 0, y: 125 }, size: 30, color: 'gold' }
+
+  const newLine = {
+    txt: 'Go Go America!',
+    pos: { x: 0, y: 150 },
+    size: +document.querySelector('.txt-size').value,
+    color: document.querySelector('.input-color').value,
+    selected: false
+  }
+
+  if (gMeme.lines.length === 1) {
+    newLine.pos.y = 200
+  } else if (gMeme.lines.length === 2) {
+    newLine.pos.y = 125
+  }
+
+  gMeme.lines.push(newLine)
+
+  memeController(false)
+}
+
+function switchLine() {
+  gMeme.lines.forEach((line) => (line.selected = false))
+
+  gMeme.selectedLineIdx++
+
+  if (gMeme.selectedLineIdx > gMeme.lines.length - 1) {
+    gMeme.selectedLineIdx = 0
+  }
+
+  const idx = gMeme.selectedLineIdx
+  gMeme.lines[idx].selected = true
+
+  memeController(false)
+
+  // TODO render the color and size on the editor to be like in the line
 }

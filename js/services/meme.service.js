@@ -9,10 +9,11 @@ let gMeme = {
   selectedImgId: 2,
   selectedLineIdx: 0,
   lines: [
-    { txt: 'Go Go America!', pos: { x: 0, y: 0 }, size: 30, color: 'red' }
+    { txt: 'Go Go America!', pos: { x: 0, y: 50 }, size: 30, color: 'red', selected:true }
   ]
 }
 
+// let linesMeasurements = {} // maybe?
 // let currLine = {} // maybe?
 
 let gKeywordSearchCountMap = { fun: 1, funny: 3, man: 1, woman: 2 }
@@ -33,6 +34,6 @@ function setTxt(val) {
   renderMeme(meme)
 }
 
-function setImg(imgId){
+function setImg(imgId) {
   gMeme.selectedImgId = imgId
 }

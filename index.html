@@ -50,9 +50,30 @@
         <canvas> </canvas>
       </section>
 
-      <section class="editor">
+      <section class="editor-container">
         <input class="input-txt" type="text" oninput="setTxt(value)" />
-        <input type="color" oninput="onColor(this)" />
+        <button onclick="onAddLine()">+</button>
+        <button onclick="switchLine()">Switch</button>
+        <section class="edit-txt">
+          <input type="color" class="input-color" oninput="onColor(this)" />
+
+          <div class="txt-size-container">
+            <input
+              type="range"
+              class="txt-size"
+              oninput="onSize(+this.value)"
+              min="20"
+              max="60"
+              step="1"
+              value="30"
+            />
+            <input
+              type="number"
+              class="txt-size"
+              oninput="onSize(+this.value)"
+            />
+          </div>
+        </section>
 
         <a
           class="download btn"
@@ -62,6 +83,7 @@
         >
       </section>
     </section>
+
     <section class="saved-page"></section>
     <section class="about-page"></section>
 
