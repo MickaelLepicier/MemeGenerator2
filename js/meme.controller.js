@@ -10,12 +10,105 @@ function onMemeEditor() {
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
 
+  addEvListeners()
+  resizeCanvas()
+
   // const meme = getMeme()
 
   // renderMeme(meme)
   // renderEditor(meme)
 
   // memeController()
+}
+
+function addEvListeners() {
+  gElCanvas.addEventListener('mouseout', onUp)
+
+  addListeners(['mousedown', 'touchstart'], onDown)
+  addListeners(['mousemove', 'touchmove'], onMove)
+  addListeners(['mouseup', 'touchend'], onUp)
+
+  window.addEventListener('resize', () => {
+    resizeCanvas()
+  })
+}
+
+function addListeners(evTypes, func) {
+  evTypes.forEach((evType) => {
+    gElCanvas.addEventListener(evType, func)
+  })
+}
+
+function onDown(ev) {
+  // get position
+  // is it in the text frame?
+  // set select - true
+
+  const pos = getEvPos(ev)
+
+  // check all the lines framePos
+  console.log('gMeme.lines: ', gMeme.lines)
+
+  // if (!isTxtClicked(pos)) {
+  //   console.log('Txt NOT click: ')
+  //   return
+  // }
+
+  if (!isTxtClicked(pos)) return
+
+  const line = getLine()
+
+  selectCurrentLine()
+
+  memeController(false)
+
+  document.body.style.cursor = 'pointer'
+}
+
+function onMove(ev) {
+  const line = getLine()
+  // change the position of the text
+  if (!line.selected) return
+
+  // document.body.style.cursor = 'grabbing'
+}
+
+function onUp(ev) {
+  //something like that - isClicked? false => return
+
+  // TODOs - check the bugs and fix them
+  // check how to move the text without flicker the img
+  
+  const elInputTxt = document.querySelector('.input-txt')
+  elInputTxt.focus()
+
+  document.body.style.cursor = 'auto'
+
+  console.log('gMeme.lines: ', gMeme.lines)
+}
+
+function getEvPos(ev) {
+  const touchEvs = ['touchstart', 'touchmove', 'touchend']
+
+  let pos = { x: ev.offsetX, y: ev.offsetY }
+
+  if (touchEvs.includes(ev.type)) {
+    ev.preventDefault()
+
+    ev = ev.changedTouches[0]
+    pos = {
+      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+    }
+  }
+
+  return pos
+}
+
+function resizeCanvas() {
+  const elMeme = document.querySelector('.meme')
+  gElCanvas.width = elMeme.offsetWidth
+  gElCanvas.height = elMeme.offsetHeight
 }
 
 function memeController(isNav = true) {
@@ -105,15 +198,29 @@ function renderTxt(line) {
 
 function calcMeasurements(txt, txtHeight, padding, pos) {
   const { x, y } = pos
+  const line = getLine()
 
   const txtMetrics = gCtx.measureText(txt)
   const txtWidth = txtMetrics.width
   //   const txtHeight = size
 
+  // console.log('txtWidth: ', txtWidth)
+
   const xStart = x - txtWidth / 2 - padding
   const yStart = y - txtHeight + padding
   const xEnd = txtWidth + padding * 2
   const yEnd = txtHeight + padding * 2
+
+  // console.log('xStart: ', xStart)
+  // console.log('xEnd: ', xStart + txtWidth + padding + padding)
+
+  const xEndFrame = xStart + txtWidth + padding * 2
+  const yEndFrame = yStart + txtHeight + padding * 2
+
+  line.framePos = { xStart, yStart, xEnd: xEndFrame, yEnd: yEndFrame }
+
+  // console.log('xEndFrame: ',xEndFrame);
+  // console.log('yEndFrame: ',yEndFrame);
 
   return { xStart, yStart, xEnd, yEnd }
 }
@@ -171,8 +278,7 @@ function onDownload(elLink) {
 }
 
 function onColor(elColor) {
-  const idx = gMeme.selectedLineIdx
-  const line = gMeme.lines[idx]
+  const line = getLine()
   line.color = elColor.value
 
   //   renderTxt(line)
@@ -181,8 +287,7 @@ function onColor(elColor) {
 }
 
 function onSize(val) {
-  const idx = gMeme.selectedLineIdx
-  const line = gMeme.lines[idx]
+  const line = getLine()
   line.size = val
 
   //   renderTxt(line)
@@ -196,35 +301,34 @@ function onAddLine() {
   const newLine = {
     txt: 'Go Go America!',
     pos: { x: 0, y: 150 },
+    framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
     size: +document.querySelector('.txt-size').value,
     color: document.querySelector('.input-color').value,
     selected: false
   }
 
   if (gMeme.lines.length === 1) {
-    newLine.pos.y = 200
+    newLine.pos.y = gElCanvas.height - 50
   } else if (gMeme.lines.length === 2) {
-    newLine.pos.y = 125
+    newLine.pos.y = gElCanvas.height / 2
   }
 
   gMeme.lines.push(newLine)
 
+  gMeme.selectedLineIdx = gMeme.lines.length - 1
+
+  selectCurrentLine()
   memeController(false)
 }
 
 function switchLine() {
-  gMeme.lines.forEach((line) => (line.selected = false))
-
   gMeme.selectedLineIdx++
 
   if (gMeme.selectedLineIdx > gMeme.lines.length - 1) {
     gMeme.selectedLineIdx = 0
   }
 
-  const idx = gMeme.selectedLineIdx
-  gMeme.lines[idx].selected = true
+  selectCurrentLine()
 
   memeController(false)
-
-  // TODO render the color and size on the editor to be like in the line
 }

@@ -12,9 +12,11 @@ let gMeme = {
     {
       txt: 'Go Go America!',
       pos: { x: 0, y: 50 },
+      framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
       size: 30,
       color: '#f20707',
       selected: true
+      // clicked:false
     }
   ]
 }
@@ -32,6 +34,10 @@ function getImgs() {
   return gImgs
 }
 
+function getLine() {
+  return gMeme.lines[gMeme.selectedLineIdx]
+}
+
 function setTxt(val) {
   const meme = getMeme()
   const lineIdx = gMeme.selectedLineIdx
@@ -42,4 +48,28 @@ function setTxt(val) {
 
 function setImg(imgId) {
   gMeme.selectedImgId = imgId
+}
+
+function isTxtClicked(clickedPos) {
+  const { x: clickX, y: clickY } = clickedPos
+
+  return gMeme.lines.some((line, index) => {
+    const { xStart, yStart, xEnd, yEnd } = line.framePos
+
+    const xChecked = clickX >= xStart && clickX <= xEnd
+    const yChecked = clickY >= yStart && clickY <= yEnd
+
+    if (xChecked && yChecked) {
+      gMeme.selectedLineIdx = index
+      return true
+    }
+    return false
+  })
+}
+
+function selectCurrentLine() {
+  gMeme.lines.forEach((line) => (line.selected = false))
+
+  const line = getLine()
+  line.selected = true
 }
