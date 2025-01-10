@@ -39,72 +39,6 @@ function addListeners(evTypes, func) {
   })
 }
 
-function onDown(ev) {
-  // get position
-  // is it in the text frame?
-  // set select - true
-
-  const pos = getEvPos(ev)
-
-  // check all the lines framePos
-  console.log('gMeme.lines: ', gMeme.lines)
-
-  // if (!isTxtClicked(pos)) {
-  //   console.log('Txt NOT click: ')
-  //   return
-  // }
-
-  if (!isTxtClicked(pos)) return
-
-  const line = getLine()
-
-  selectCurrentLine()
-
-  memeController(false)
-
-  document.body.style.cursor = 'pointer'
-}
-
-function onMove(ev) {
-  const line = getLine()
-  // change the position of the text
-  if (!line.selected) return
-
-  // document.body.style.cursor = 'grabbing'
-}
-
-function onUp(ev) {
-  //something like that - isClicked? false => return
-
-  // TODOs - check the bugs and fix them
-  // check how to move the text without flicker the img
-  
-  const elInputTxt = document.querySelector('.input-txt')
-  elInputTxt.focus()
-
-  document.body.style.cursor = 'auto'
-
-  console.log('gMeme.lines: ', gMeme.lines)
-}
-
-function getEvPos(ev) {
-  const touchEvs = ['touchstart', 'touchmove', 'touchend']
-
-  let pos = { x: ev.offsetX, y: ev.offsetY }
-
-  if (touchEvs.includes(ev.type)) {
-    ev.preventDefault()
-
-    ev = ev.changedTouches[0]
-    pos = {
-      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-    }
-  }
-
-  return pos
-}
-
 function resizeCanvas() {
   const elMeme = document.querySelector('.meme')
   gElCanvas.width = elMeme.offsetWidth
@@ -134,12 +68,13 @@ function renderMeme(meme) {
     return
   }
 
-  clearCanvas()
-
   const img = new Image()
   img.src = imgObj.url
 
   img.onload = () => {
+    clearCanvas()
+    // resizeCanvas()
+
     // Add image & texts on the Canvas
     drawImg(img)
     renderTxts(lines)
@@ -157,18 +92,12 @@ function renderTxts(lines) {
 }
 
 function renderTxt(line) {
-  const { txt, pos, size, color, selected } = line
-  // {
-  // txt: 'Go Go America!', pos: { x: 0, y: 0 },
-  // size: 30, color: 'red'
-  // }
-
-  //   clearTxt(line)
+  const { txt, pos, size, borderColor, color, selected } = line
 
   // Add Text on the Canvas
   gCtx.font = `${size}px Arial`
   gCtx.fillStyle = color
-  gCtx.strokeStyle = 'black'
+  gCtx.strokeStyle = borderColor
   gCtx.lineWidth = 2
   gCtx.textAlign = 'center'
 
@@ -179,50 +108,86 @@ function renderTxt(line) {
   gCtx.strokeText(txt, x, y)
 
   const padding = 2
-  gCtx.strokeStyle = 'black'
-  gCtx.lineWidth = 2
+  //   gCtx.strokeStyle = 'black'
+  //   gCtx.lineWidth = 2
 
   if (selected) gCtx.strokeStyle = 'gold'
 
   // calculate the text measurements (x & y)
-  const measurementsObj = calcMeasurements(txt, size, padding, { x, y })
+  const measurementsObj = calcMeasurements(line, padding, { x, y })
   const { xStart, yStart, xEnd, yEnd } = measurementsObj
 
   // draw a frame to the text
   gCtx.strokeRect(xStart, yStart, xEnd, yEnd)
-
-  // Update the text size input Element
-  //   const elTxtSize = document.querySelector('.txt-size')
-  //   elTxtSize.value = size
 }
 
-function calcMeasurements(txt, txtHeight, padding, pos) {
+function calcMeasurements(line, padding, pos) {
+  const { txt, size } = line
   const { x, y } = pos
-  const line = getLine()
 
   const txtMetrics = gCtx.measureText(txt)
   const txtWidth = txtMetrics.width
   //   const txtHeight = size
 
-  // console.log('txtWidth: ', txtWidth)
+  let xStart = x - txtWidth / 2 - padding
+  let yStart = y - size + padding
+  let xEnd = txtWidth + padding * 2
+  let yEnd = size + padding * 2
 
-  const xStart = x - txtWidth / 2 - padding
-  const yStart = y - txtHeight + padding
-  const xEnd = txtWidth + padding * 2
-  const yEnd = txtHeight + padding * 2
+  xStart = additionalOffset(xStart, 5, false)
+  //    yStart = y - size + padding
+  xEnd = additionalOffset(xEnd, 5, true)
+  yEnd = additionalOffset(yEnd, 10, true)
 
-  // console.log('xStart: ', xStart)
-  // console.log('xEnd: ', xStart + txtWidth + padding + padding)
+  let xEndFrame = xStart + txtWidth + padding * 2
+  let yEndFrame = yStart + size + padding * 2
 
-  const xEndFrame = xStart + txtWidth + padding * 2
-  const yEndFrame = yStart + txtHeight + padding * 2
+  xEndFrame = additionalOffset(xEndFrame, 5, true)
+  yEndFrame = additionalOffset(yEndFrame, 10, true)
 
   line.framePos = { xStart, yStart, xEnd: xEndFrame, yEnd: yEndFrame }
 
-  // console.log('xEndFrame: ',xEndFrame);
-  // console.log('yEndFrame: ',yEndFrame);
-
   return { xStart, yStart, xEnd, yEnd }
+}
+
+function additionalOffset(num, percent, isPlus) {
+  let newNum = (num / 100) * percent
+  newNum = isPlus ? num + newNum : num - newNum
+  return newNum
+}
+
+function renderEditor(meme) {
+  const { selectedLineIdx, lines } = meme
+  if (!lines.length) return
+
+  //   const {txt, color, size} = lines[selectedLineIdx]
+
+  const txt = lines[selectedLineIdx].txt
+  const borderColor = lines[selectedLineIdx].borderColor
+  const color = lines[selectedLineIdx].color
+  const size = lines[selectedLineIdx].size
+
+  renderInputTxt(txt)
+  renderInputColors(borderColor, color)
+  renderInputSize(size)
+}
+
+function renderInputTxt(txt) {
+  const elInputTxt = document.querySelector('.input-txt')
+  elInputTxt.value = txt
+}
+
+function renderInputColors(borderColor, color) {
+  const elInputBorderColor = document.querySelector('.input-border-color')
+  const elInputColor = document.querySelector('.input-color')
+
+  elInputBorderColor.value = borderColor
+  elInputColor.value = color
+}
+
+function renderInputSize(size) {
+  const elInputsTxtSize = document.querySelectorAll('.txt-size-container input')
+  elInputsTxtSize.forEach((input) => (input.value = size))
 }
 
 // function clearTxt(line) {
@@ -243,33 +208,80 @@ function calcMeasurements(txt, txtHeight, padding, pos) {
 //   gCtx.clearRect(xStart, yStart, xEnd, yEnd)
 // }
 
-function renderEditor(meme) {
-  const { selectedLineIdx, lines } = meme
+let gIsDrag = false
+let gStartPos
 
-  //   const {txt, color, size} = lines[selectedLineIdx]
+function onDown(ev) {
+  const pos = getEvPos(ev)
 
-  const txt = lines[selectedLineIdx].txt
-  const color = lines[selectedLineIdx].color
-  const size = lines[selectedLineIdx].size
+  if (!isTxtClicked(pos)) return
 
-  renderInputTxt(txt)
-  renderInputColor(color)
-  renderInputSize(size)
+  //   const line = getLine()
+
+  gStartPos = pos
+
+  selectCurrentLine()
+
+  memeController(false)
+
+  gIsDrag = true
+  document.body.style.cursor = 'pointer'
 }
 
-function renderInputTxt(txt) {
-  const elInputTxt = document.querySelector('.input-txt')
-  elInputTxt.value = txt
+// TODO watch this video and fix the bug:
+// https://www.youtube.com/watch?v=ymDjvycjgUM
+
+function onMove(ev) {
+  if (!gMeme.lines.length || !gIsDrag) return
+
+  const line = getLine()
+  // change the position of the text
+  if (!line.selected) return
+
+  const pos = getEvPos(ev)
+  line.pos = pos
+
+  //   const x = pos.x - gStartPos.x
+  //   const y = pos.y - gStartPos.y
+
+  //   // move text
+  //   line.pos.x += x
+  //   line.pos.y += y
+
+  //   gStartPos = pos
+
+  memeController(false)
+
+  document.body.style.cursor = 'grabbing'
 }
 
-function renderInputColor(color) {
-  const elInputColor = document.querySelector('.input-color')
-  elInputColor.value = color
+function onUp(ev) {
+  //something like that - isClicked? false => return
+
+  inputTxtFocus()
+
+  gIsDrag = false
+  document.body.style.cursor = 'auto'
+
+  //   console.log('gMeme.lines: ', gMeme.lines)
 }
 
-function renderInputSize(size) {
-  const elInputsTxtSize = document.querySelectorAll('.txt-size-container input')
-  elInputsTxtSize.forEach((input) => (input.value = size))
+function getEvPos(ev) {
+  const touchEvs = ['touchstart', 'touchmove', 'touchend']
+
+  let pos = { x: ev.offsetX, y: ev.offsetY }
+
+  if (touchEvs.includes(ev.type)) {
+    ev.preventDefault()
+
+    ev = ev.changedTouches[0]
+    pos = {
+      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+    }
+  }
+
+  return pos
 }
 
 function onDownload(elLink) {
@@ -280,6 +292,15 @@ function onDownload(elLink) {
 function onColor(elColor) {
   const line = getLine()
   line.color = elColor.value
+
+  //   renderTxt(line)
+
+  memeController(false)
+}
+
+function onBorderColor(elColor) {
+  const line = getLine()
+  line.borderColor = elColor.value
 
   //   renderTxt(line)
 
@@ -303,6 +324,7 @@ function onAddLine() {
     pos: { x: 0, y: 150 },
     framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
     size: +document.querySelector('.txt-size').value,
+    borderColor: document.querySelector('.input-border-color').value,
     color: document.querySelector('.input-color').value,
     selected: false
   }
@@ -318,10 +340,11 @@ function onAddLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 
   selectCurrentLine()
+  inputTxtFocus()
   memeController(false)
 }
 
-function switchLine() {
+function onSwitchLine() {
   gMeme.selectedLineIdx++
 
   if (gMeme.selectedLineIdx > gMeme.lines.length - 1) {
@@ -329,6 +352,46 @@ function switchLine() {
   }
 
   selectCurrentLine()
+  inputTxtFocus()
+  memeController(false)
+}
+
+function onDelete() {
+  const idx = gMeme.selectedLineIdx
+  gMeme.lines.splice(idx, 1)
+
+  //TODO fix bug - mybe the problem is with the idx
+  console.log('lines: ', gMeme.lines)
+
+  memeController(false)
+}
+
+function inputTxtFocus() {
+  const elInputTxt = document.querySelector('.input-txt')
+  elInputTxt.focus()
+}
+
+function txtAlignment(direction) {
+  const line = getLine()
+  const txtMetrics = gCtx.measureText(line.txt)
+  const txtWidth = txtMetrics.width
+
+  switch (direction) {
+    case 'left':
+      line.pos.x = txtWidth / 2 + 10
+      break
+
+    case 'center':
+      line.pos.x = gElCanvas.width / 2
+      break
+
+    case 'right':
+      line.pos.x = gElCanvas.width - txtWidth / 2 - 10
+      break
+
+    default:
+      break
+  }
 
   memeController(false)
 }

@@ -55,9 +55,11 @@
         <input class="input-txt" type="text" oninput="setTxt(value)" />
         <section class="edit-line">
           <button onclick="onAddLine()">+</button>
-          <button onclick="switchLine()">Switch</button>
+          <button onclick="onSwitchLine()">Switch</button>
+          <button onclick="onDelete()">Delete</button>
         </section>
         <section class="edit-txt">
+          <input type="color" class="input-border-color" oninput="onBorderColor(this)" />
           <input type="color" class="input-color" oninput="onColor(this)" />
 
           <div class="txt-size-container">
@@ -76,6 +78,15 @@
               value="30"
             />
           </div>
+          <button class="text-alignment" onclick="txtAlignment('left')">
+            Left
+          </button>
+          <button class="text-alignment" onclick="txtAlignment('center')">
+            center
+          </button>
+          <button class="text-alignment" onclick="txtAlignment('right')">
+            right
+          </button>
         </section>
 
         <a

@@ -235,6 +235,18 @@ canvas {
   text-align: center;
 }
 
+.input-color,
+.input-border-color {
+  width: 2em;
+  /* height: 2em; */
+  border-radius: 5px;
+}
+
+.input-color:hover,
+.input-border-color:hover {
+  cursor: pointer;
+}
+
 .btn {
   padding: 0.5em;
 

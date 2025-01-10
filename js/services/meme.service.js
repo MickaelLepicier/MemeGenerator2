@@ -14,8 +14,10 @@ let gMeme = {
       pos: { x: 0, y: 50 },
       framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
       size: 30,
+      borderColor: '#000000',
       color: '#f20707',
-      selected: true
+      selected: true,
+      // isGrabing: false
       // clicked:false
     }
   ]
