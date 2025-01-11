@@ -1,6 +1,10 @@
 'use strict'
 
 // TODOs: make the app beutiful :)
+// gallery search bar - 15 m'
+// editor in editor meme page - 1.5 h'
+
+// untill 15:00 all the app is arrange
 
 let gElCanvas
 let gCtx
@@ -271,10 +275,10 @@ function onSize(val) {
 
 function onAddLine() {
   const newLine = {
-    txt: 'Go Go America!',
+    txt: 'Text here ',
     pos: { x: 0, y: 150 },
     framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
-    size: +document.querySelector('.txt-size').value,
+    size: +document.querySelector('.txt-size-range').value,
     borderColor: document.querySelector('.input-border-color').value,
     color: document.querySelector('.input-color').value,
     selected: false
@@ -291,7 +295,7 @@ function onAddLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 
   selectCurrentLine()
-  inputTxtFocus(true)
+  inputTxtFocus(false)
   memeController(false)
 }
 
@@ -303,7 +307,7 @@ function onSwitchLine() {
   }
 
   selectCurrentLine()
-  inputTxtFocus(true)
+  inputTxtFocus(false)
   memeController(false)
 }
 
@@ -320,12 +324,13 @@ function onDelete() {
   memeController(false)
 }
 
-function inputTxtFocus(isFocus) {
+function inputTxtFocus(allLinesUnselected) {
   const elInputTxt = document.querySelector('.input-txt')
-  if (isFocus) {
-    elInputTxt.focus()
-  } else {
+
+  if (allLinesUnselected) {
     elInputTxt.blur()
+  } else {
+    elInputTxt.focus()
   }
 }
 

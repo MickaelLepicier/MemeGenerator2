@@ -11,8 +11,7 @@
     <!-- LOGO Gallery Saved About -->
     <header>
       <a href="/" class="logo">
-        Logo
-        <!-- <img src="/" alt="img Logo" /> -->
+        <img src="img/logo.jpg" alt="img Logo" class="logo" />
       </a>
 
       <section class="nav-container">
@@ -36,8 +35,13 @@
     <!-- Gallery Editor Saved About -->
 
     <section class="gallery-page">
-      <input type="search" oninput="" placeholder="Search" />
-      <div class="keyword" onclick=""></div>
+      <input
+        type="search"
+        class="search-keyword"
+        oninput=""
+        placeholder="Search"
+      />
+      <!-- <div class="keyword" onclick=""></div> -->
 
       <section class="gallery-images">
         <!-- <img class="gallery-image" src="img/2.jpg" alt="img" onclick="" />
@@ -54,39 +58,73 @@
       <section class="editor-container">
         <input class="input-txt" type="text" oninput="setTxt(value)" />
         <section class="edit-line">
-          <button onclick="onAddLine()">+</button>
-          <button onclick="onSwitchLine()">Switch</button>
-          <button onclick="onDelete()">Delete</button>
+          <img
+            src="icons/add.png"
+            alt="add-icon"
+            class="btn"
+            onclick="onAddLine()"
+          />
+          <img
+            src="icons/switch.png"
+            alt="switch-icon"
+            class="btn"
+            onclick="onSwitchLine()"
+          />
+          <img
+            src="icons/delete.png"
+            alt="delete-icon"
+            class="btn"
+            onclick="onDelete()"
+          />
         </section>
+
         <section class="edit-txt">
-          <input type="color" class="input-border-color" oninput="onBorderColor(this)" />
+          <input
+            type="color"
+            class="input-border-color"
+            oninput="onBorderColor(this)"
+          />
+
           <input type="color" class="input-color" oninput="onColor(this)" />
 
-          <div class="txt-size-container">
+          <section class="txt-size">
             <input
               type="range"
+              class="txt-size-range"
               oninput="onSize(+this.value)"
               min="20"
-              max="60"
+              max="80"
               step="1"
-              value="30"
+              value="40"
             />
             <input
               type="number"
-              class="txt-size"
+              class="txt-size-num"
               oninput="onSize(+this.value)"
-              value="30"
+              value="40"
             />
-          </div>
-          <button class="text-alignment" onclick="onTxtAlignment('left')">
-            Left
-          </button>
-          <button class="text-alignment" onclick="onTxtAlignment('center')">
-            center
-          </button>
-          <button class="text-alignment" onclick="onTxtAlignment('right')">
-            right
-          </button>
+          </section>
+
+          <section class="text-alignment">
+            <img
+              src="icons/left.png"
+              alt="left-icon"
+              class="btn"
+              onclick="onTxtAlignment('left')"
+            />
+            <img
+              src="icons/center.png"
+              alt="center-icon"
+              class="btn"
+              onclick="onTxtAlignment('center')"
+            />
+            <img
+              src="icons/right.png"
+              alt="right-icon"
+              class="btn"
+              onclick="onTxtAlignment('right')"
+            />
+          </section>
         </section>
 
         <a
