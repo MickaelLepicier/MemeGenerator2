@@ -1,5 +1,9 @@
 'use strict'
 
+// TODOs
+// fix bug - on mobile about the inputTxtFocus( - when focus the img dissapeer
+// fix bug - when size range the size num dont follow
+
 let gElCanvas
 let gCtx
 
