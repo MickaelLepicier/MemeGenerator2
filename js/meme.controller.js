@@ -1,7 +1,6 @@
 'use strict'
 
-// put on the init onMemeEditor()
-// click an img - Run memeController()
+// TODOs: make the app beutiful :)
 
 let gElCanvas
 let gCtx
@@ -219,7 +218,8 @@ function onMove(ev) {
 }
 
 function onUp(ev) {
-  inputTxtFocus()
+  const allLinesUnselected = gMeme.lines.every((line) => !line.selected)
+  inputTxtFocus(allLinesUnselected)
 
   gIsDrag = false
   document.body.style.cursor = 'auto'
@@ -291,7 +291,7 @@ function onAddLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 
   selectCurrentLine()
-  inputTxtFocus()
+  inputTxtFocus(true)
   memeController(false)
 }
 
@@ -303,7 +303,7 @@ function onSwitchLine() {
   }
 
   selectCurrentLine()
-  inputTxtFocus()
+  inputTxtFocus(true)
   memeController(false)
 }
 
@@ -320,9 +320,13 @@ function onDelete() {
   memeController(false)
 }
 
-function inputTxtFocus() {
+function inputTxtFocus(isFocus) {
   const elInputTxt = document.querySelector('.input-txt')
-  elInputTxt.focus()
+  if (isFocus) {
+    elInputTxt.focus()
+  } else {
+    elInputTxt.blur()
+  }
 }
 
 function onTxtAlignment(direction) {
