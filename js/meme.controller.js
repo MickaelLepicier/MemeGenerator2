@@ -1,11 +1,5 @@
 'use strict'
 
-// TODOs: make the app beutiful :)
-// gallery search bar - 15 m'
-// editor in editor meme page - 1.5 h'
-
-// untill 15:00 all the app is arrange
-
 let gElCanvas
 let gCtx
 
