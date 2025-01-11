@@ -1,5 +1,4 @@
 body {
-  /* height: 100vh;*/
   background-color: grey;
 
   display: flex;
@@ -8,9 +7,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  /* display: none; */
   width: 0.5em;
-  /* height: 8px; */
 
   background-color: #aaa;
 }
@@ -32,8 +29,6 @@ header {
 
 .logo {
   max-width: 4em;
-  /* max-height: 5vh; */
-  /* height: auto; */
 
   margin-inline: 2vw;
   border-radius: 50px;
@@ -74,16 +69,9 @@ header {
 
 .navbar li {
   padding: 12px 0;
-  color: white;
+  color: black;
   font-size: 20px;
   text-decoration: none;
-}
-
-.navbar li:hover {
-  color: black;
-
-  cursor: pointer;
-  transition: 0.8s;
 }
 
 .menu-bg,
@@ -128,20 +116,13 @@ header {
   height: 460px;
   transform: translate(70%, -25%);
   transition: 0.3s ease;
-
-  /* width: 400px;
-  height: 350px; */
-  /* transform: translate(60%, -15%); */
 }
 
 /* For DeskTop */
 
 @media (width > 1050px) {
   .logo {
-    /* max-width: 4em; */
     margin-inline: -1vw;
-
-    /* margin-inline: 5vw; */
   }
 
   header {
@@ -165,9 +146,18 @@ header {
   }
 
   .navbar li {
-    font-size: 1.2em;
+    margin-inline-end: 1em;
+    font-size: 1.5em;
+    font-weight: bold;
 
+    color: black;
+  }
+
+  .navbar li:hover {
     color: gold;
+
+    cursor: pointer;
+    transition: 0.8s;
   }
 
   .btn-bg {
@@ -180,10 +170,6 @@ header {
 }
 /* Gallery Page - Mobile First */
 
-.gallery-page {
-  /* display: grid; */
-}
-
 .search-keyword {
   min-width: 30vw;
   min-height: 2em;
@@ -191,13 +177,9 @@ header {
   font-size: 1.2em;
 
   border-radius: 10px;
-  /* border: 10px solid black; */
 }
 
 .gallery-images {
-  /* display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
-
   column-count: 1;
   gap: 1.5em;
 
@@ -236,15 +218,6 @@ header {
   border-radius: 10px;
 }
 
-.meme {
-  /* border: 20px solid black; */
-  /* min-width: 80vw; */
-  /* min-width: 70vw; */
-
-  /* border-radius: 10px; */
-  /* box-shadow: 1px 1px 31px 8px rgba(0, 0, 0, 0.75); */
-}
-
 canvas {
   min-width: 70vw;
   border-radius: 10px;
@@ -258,14 +231,13 @@ canvas {
   gap: 1em;
 
   min-width: 70vw;
-  padding: 0.5em;
+  padding: 1em;
   border: 2px solid black;
   border-radius: 10px;
   box-shadow: 1px 1px 31px 8px rgba(0, 0, 0, 0.75);
 }
 
 .input-txt {
-  /* width: 50vw; */
   width: 80%;
   height: 5vh;
 
@@ -281,7 +253,6 @@ canvas {
 
 .edit-line img,
 .edit-txt img {
-  /* display: inline; */
   max-width: 10vw;
 }
 
@@ -320,8 +291,11 @@ canvas {
   gap: 1em;
   justify-content: center;
 }
-.download {
-  /* cursor: pointer; */
+
+.btns {
+  display: flex;
+  gap: 1em;
+  align-items: center;
 }
 
 .btn {
@@ -347,7 +321,6 @@ canvas {
     flex-direction: row;
     justify-content: center;
     gap: 1em;
-    /* height: 80vh; */
     margin: auto;
   }
 

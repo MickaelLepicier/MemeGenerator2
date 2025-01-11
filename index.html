@@ -38,20 +38,25 @@
       <input
         type="search"
         class="search-keyword"
-        oninput=""
+        oninput="onSearchKeyword(this.value)"
         placeholder="Search"
+        list="search-options"
+        autocomplete="off"
       />
-      <!-- <div class="keyword" onclick=""></div> -->
-
-      <section class="gallery-images">
-        <!-- <img class="gallery-image" src="img/2.jpg" alt="img" onclick="" />
-        <img class="gallery-image" src="img/003.jpg" alt="img" onclick="" /> -->
-      </section>
+      <datalist id="search-options">
+        <option value="ai"></option>
+        <option value="funny"></option>
+        <option value="cool"></option>
+        <option value="dragon ball z"></option>
+        <option value="naruto"></option>
+        <option value="yugioh"></option>
+      </datalist>
+      <!-- </input> -->
+      <section class="gallery-images"></section>
     </section>
 
     <section class="meme-editor-page">
       <section class="meme">
-        <!-- <textarea name="text" class="text-area" ></textarea> -->
         <canvas> </canvas>
       </section>
 
@@ -127,17 +132,34 @@
           </section>
         </section>
 
-        <a
-          class="download btn"
-          download="My Special Meme"
-          onclick="onDownload(this)"
-          >Download</a
-        >
+        <section class="btns">
+          <form onsubmit="shareMeme(this, event)">
+            <input name="img" class="img-data" type="hidden" />
+            <button type="submit" class="btn">Share</button>
+            <div class="share-container"></div>
+          </form>
+
+          <a
+            class="download btn"
+            download="My Special Meme"
+            onclick="onDownload(this)"
+            >Download</a
+          >
+
+          <label class="btn">
+            Upload
+            <input
+              type="file"
+              onchange="uploadImg(event)"
+              style="display: none"
+            />
+          </label>
+        </section>
       </section>
     </section>
 
-    <section class="saved-page"></section>
-    <section class="about-page"></section>
+    <section class="saved-page">Didn't make it yet</section>
+    <section class="about-page">Didn't make it yet</section>
 
     <footer>Created by ©Mickael-Lepicier</footer>
 

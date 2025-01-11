@@ -70,6 +70,8 @@ let gImgs = [
   { id: 37, url: 'img/cool/037.jpg', keywords: ['cool', 'dragon ball z'] }
 ]
 
+let gImgsFiltered = []
+
 let gMeme = {
   selectedImgId: 2,
   selectedLineIdx: 0,
@@ -96,7 +98,7 @@ function getMeme() {
 }
 
 function getImgs() {
-  return gImgs
+  return gImgsFiltered.length === 0 ? gImgs : gImgsFiltered
 }
 
 function getLine() {
@@ -137,4 +139,20 @@ function selectCurrentLine() {
 
   const line = getLine()
   line.selected = true
+}
+
+function doUploadImg(elForm, onSuccess) {
+  let formData = new FormData(elForm)
+
+  fetch('//ca-upload.com/here/upload.php', {
+    method: 'POST',
+    body: formData
+  })
+    .then(function (res) {
+      return res.text()
+    })
+    .then(onSuccess)
+    .catch(function (err) {
+      console.error(err)
+    })
 }

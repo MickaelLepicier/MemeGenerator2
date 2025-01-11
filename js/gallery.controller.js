@@ -40,3 +40,8 @@ function onImgSelect(imgId) {
   setImg(imgId)
   memeController()
 }
+
+function onSearchKeyword(val) {
+  gImgsFiltered = gImgs.filter((img) => img.keywords.includes(val))
+  renderGallery()
+}

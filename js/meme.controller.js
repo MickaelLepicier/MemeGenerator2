@@ -107,7 +107,7 @@ function renderTxt(line) {
   const measurementsObj = calcMeasurements(line, padding, { x, y })
   const { xStart, yStart, xEnd, yEnd } = measurementsObj
 
-  // draw a frame to the text
+  // draw a border to the text
   gCtx.strokeRect(xStart, yStart, xEnd, yEnd)
 }
 
@@ -313,7 +313,7 @@ function onDelete() {
   gMeme.lines.splice(idx, 1)
 
   //TODO fix bug - mybe the problem is with the idx
-  console.log('lines: ', gMeme.lines)
+  // console.log('lines: ', gMeme.lines)
 
   memeController(false)
 }
@@ -351,4 +351,39 @@ function onTxtAlignment(direction) {
   }
 
   memeController(false)
+}
+
+// ~ Upload Image ~ //
+
+function uploadImg(ev) {
+  let reader = new FileReader()
+
+  reader.onload = function (event) {
+    let img = new Image()
+    img.onload = () => renderImageOnCanvas(img)
+    img.src = event.target.result
+  }
+  reader.readAsDataURL(ev.target.files[0])
+}
+
+function renderImageOnCanvas(img) {
+  gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+// ~ Share Image to Facebook ~ //
+
+function shareMeme(elForm, ev) {
+  ev.preventDefault()
+  document.querySelector('.img-data').value = gElCanvas.toDataURL('image/jpeg')
+
+  function onSuccess(uploadedImgUrl) {
+    uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+    document.querySelector('.share-container').innerHTML = `
+    <a class="display-none invisible-btn" hidden href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+            Can't touch this   
+        </a>`
+    document.querySelector('.invisible-btn').click()
+  }
+
+  doUploadImg(elForm, onSuccess)
 }

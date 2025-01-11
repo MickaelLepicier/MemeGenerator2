@@ -20,16 +20,12 @@ function hidePages(pages) {
 function hidePage(page) {
   const sectionEl = document.querySelector(`.${page}-page`)
   sectionEl.classList.add('hidden')
-
-  // sectionEl.style.display = 'none'
-  // sectionEl.setAttribute('hidden', true)
 }
 
 function showPage(page) {
   const sectionEl = document.querySelector(`.${page}-page`)
 
   sectionEl.classList.remove('hidden')
-  // sectionEl.hidden = false
 }
 
 // Menu func
