@@ -1,7 +1,6 @@
 'use strict'
 
-// put on the init onMemeEditor()
-// click an img - Run memeController()
+// TODOs: make the app beutiful :)
 
 let gElCanvas
 let gCtx
@@ -219,7 +218,8 @@ function onMove(ev) {
 }
 
 function onUp(ev) {
-  inputTxtFocus()
+  const allLinesUnselected = gMeme.lines.every((line) => !line.selected)
+  if (!allLinesUnselected) inputTxtFocus()
 
   gIsDrag = false
   document.body.style.cursor = 'auto'

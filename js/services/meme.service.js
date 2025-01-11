@@ -17,17 +17,12 @@ let gMeme = {
       borderColor: '#000000',
       color: '#f20707',
       selected: true
-      // isGrabing: false
-      // clicked:false
     }
   ]
 }
 
 let gStartPos
 let gIsDrag = false
-
-// let linesMeasurements = {} // maybe?
-// let currLine = {} // maybe?
 
 let gKeywordSearchCountMap = { fun: 1, funny: 3, man: 1, woman: 2 }
 
