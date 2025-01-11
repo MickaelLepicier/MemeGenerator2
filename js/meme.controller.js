@@ -217,7 +217,7 @@ function onMove(ev) {
 
 function onUp(ev) {
   const allLinesUnselected = gMeme.lines.every((line) => !line.selected)
-  inputTxtFocus(allLinesUnselected)
+  // inputTxtFocus(allLinesUnselected)
 
   gIsDrag = false
   document.body.style.cursor = 'auto'
@@ -289,7 +289,7 @@ function onAddLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 
   selectCurrentLine()
-  inputTxtFocus(false)
+  // inputTxtFocus(false)
   memeController(false)
 }
 
@@ -301,7 +301,7 @@ function onSwitchLine() {
   }
 
   selectCurrentLine()
-  inputTxtFocus(false)
+  // inputTxtFocus(false)
   memeController(false)
 }
 
