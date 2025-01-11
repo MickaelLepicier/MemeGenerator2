@@ -16,12 +16,15 @@ let gMeme = {
       size: 30,
       borderColor: '#000000',
       color: '#f20707',
-      selected: true,
+      selected: true
       // isGrabing: false
       // clicked:false
     }
   ]
 }
+
+let gStartPos
+let gIsDrag = false
 
 // let linesMeasurements = {} // maybe?
 // let currLine = {} // maybe?

@@ -12,13 +12,6 @@ function onMemeEditor() {
 
   addEvListeners()
   resizeCanvas()
-
-  // const meme = getMeme()
-
-  // renderMeme(meme)
-  // renderEditor(meme)
-
-  // memeController()
 }
 
 function addEvListeners() {
@@ -73,7 +66,6 @@ function renderMeme(meme) {
 
   img.onload = () => {
     clearCanvas()
-    // resizeCanvas()
 
     // Add image & texts on the Canvas
     drawImg(img)
@@ -93,6 +85,7 @@ function renderTxts(lines) {
 
 function renderTxt(line) {
   const { txt, pos, size, borderColor, color, selected } = line
+  const padding = 2
 
   // Add Text on the Canvas
   gCtx.font = `${size}px Arial`
@@ -101,17 +94,17 @@ function renderTxt(line) {
   gCtx.lineWidth = 2
   gCtx.textAlign = 'center'
 
-  // TODO - set the pos x & y
   const x = pos.x ? pos.x : gElCanvas.width / 2
   const y = pos.y ? pos.y : 200 // position on the top
   gCtx.fillText(txt, x, y)
   gCtx.strokeText(txt, x, y)
 
-  const padding = 2
-  //   gCtx.strokeStyle = 'black'
-  //   gCtx.lineWidth = 2
+  // set the x & y on the line position
+  line.pos = { x, y }
 
-  if (selected) gCtx.strokeStyle = 'gold'
+  if (!selected) return
+
+  gCtx.strokeStyle = 'gold'
 
   // calculate the text measurements (x & y)
   const measurementsObj = calcMeasurements(line, padding, { x, y })
@@ -127,7 +120,6 @@ function calcMeasurements(line, padding, pos) {
 
   const txtMetrics = gCtx.measureText(txt)
   const txtWidth = txtMetrics.width
-  //   const txtHeight = size
 
   let xStart = x - txtWidth / 2 - padding
   let yStart = y - size + padding
@@ -135,7 +127,6 @@ function calcMeasurements(line, padding, pos) {
   let yEnd = size + padding * 2
 
   xStart = additionalOffset(xStart, 5, false)
-  //    yStart = y - size + padding
   xEnd = additionalOffset(xEnd, 5, true)
   yEnd = additionalOffset(yEnd, 10, true)
 
@@ -159,8 +150,6 @@ function additionalOffset(num, percent, isPlus) {
 function renderEditor(meme) {
   const { selectedLineIdx, lines } = meme
   if (!lines.length) return
-
-  //   const {txt, color, size} = lines[selectedLineIdx]
 
   const txt = lines[selectedLineIdx].txt
   const borderColor = lines[selectedLineIdx].borderColor
@@ -190,33 +179,15 @@ function renderInputSize(size) {
   elInputsTxtSize.forEach((input) => (input.value = size))
 }
 
-// function clearTxt(line) {
-//   const { pos, size } = line
-
-//   // TODO - set the pos x & y
-//   const x = gElCanvas.width / 2
-//   const y = 50
-
-//   const padding = 10
-//   const txtWidth = gCtx.measureText(line.txt).width
-
-//   const xStart = x - txtWidth / 2 - padding
-//   const yStart = y - size - padding
-//   const xEnd = txtWidth + padding * 2
-//   const yEnd = size + padding * 2
-
-//   gCtx.clearRect(xStart, yStart, xEnd, yEnd)
-// }
-
-let gIsDrag = false
-let gStartPos
-
 function onDown(ev) {
   const pos = getEvPos(ev)
 
-  if (!isTxtClicked(pos)) return
-
-  //   const line = getLine()
+  if (!isTxtClicked(pos)) {
+    // remove the border of all the texts
+    gMeme.lines.forEach((line) => (line.selected = false))
+    memeController(false)
+    return
+  }
 
   gStartPos = pos
 
@@ -228,27 +199,19 @@ function onDown(ev) {
   document.body.style.cursor = 'pointer'
 }
 
-// TODO watch this video and fix the bug:
-// https://www.youtube.com/watch?v=ymDjvycjgUM
-
 function onMove(ev) {
-  if (!gMeme.lines.length || !gIsDrag) return
-
   const line = getLine()
-  // change the position of the text
-  if (!line.selected) return
+  if (!gMeme.lines.length || !gIsDrag || !line.selected) return
 
   const pos = getEvPos(ev)
-  line.pos = pos
 
-  //   const x = pos.x - gStartPos.x
-  //   const y = pos.y - gStartPos.y
+  const dx = pos.x - gStartPos.x
+  const dy = pos.y - gStartPos.y
 
-  //   // move text
-  //   line.pos.x += x
-  //   line.pos.y += y
+  line.pos.x += dx
+  line.pos.y += dy
 
-  //   gStartPos = pos
+  gStartPos = pos
 
   memeController(false)
 
@@ -256,14 +219,10 @@ function onMove(ev) {
 }
 
 function onUp(ev) {
-  //something like that - isClicked? false => return
-
   inputTxtFocus()
 
   gIsDrag = false
   document.body.style.cursor = 'auto'
-
-  //   console.log('gMeme.lines: ', gMeme.lines)
 }
 
 function getEvPos(ev) {
@@ -293,16 +252,12 @@ function onColor(elColor) {
   const line = getLine()
   line.color = elColor.value
 
-  //   renderTxt(line)
-
   memeController(false)
 }
 
 function onBorderColor(elColor) {
   const line = getLine()
   line.borderColor = elColor.value
-
-  //   renderTxt(line)
 
   memeController(false)
 }
@@ -311,14 +266,10 @@ function onSize(val) {
   const line = getLine()
   line.size = val
 
-  //   renderTxt(line)
-
   memeController(false)
 }
 
 function onAddLine() {
-  // { txt: 'Go Go America!', pos: { x: 0, y: 125 }, size: 30, color: 'gold' }
-
   const newLine = {
     txt: 'Go Go America!',
     pos: { x: 0, y: 150 },
@@ -357,6 +308,9 @@ function onSwitchLine() {
 }
 
 function onDelete() {
+  const line = getLine()
+  if (!line.selected) return
+
   const idx = gMeme.selectedLineIdx
   gMeme.lines.splice(idx, 1)
 
@@ -371,7 +325,7 @@ function inputTxtFocus() {
   elInputTxt.focus()
 }
 
-function txtAlignment(direction) {
+function onTxtAlignment(direction) {
   const line = getLine()
   const txtMetrics = gCtx.measureText(line.txt)
   const txtWidth = txtMetrics.width
