@@ -24,16 +24,17 @@ function addEvListeners() {
   gElCanvas.addEventListener('mouseout', onUp)
 
   const input = document.querySelector('.input-txt')
-  // const canvas = document.querySelector('canvas')
+  const canvas = document.querySelector('canvas')
 
   input.addEventListener('focus', () => {
-    // canvas.style.display = 'none'
     console.log('sss: ')
-    // renderMeme()
-    // setTimeout(() => (canvas.style.display = 'block'), 0)
+
+    // visibility:hidden
+    canvas.style.visibility = 'hidden'
+    setTimeout(() => (canvas.style.visibility = 'visible'), 0)
 
     // setTimeout(() => renderMeme, 0)
-    setTimeout(() => onMemeEditor, 0)
+    // setTimeout(() => onMemeEditor, 0)
   })
 
   addListeners(['mousedown', 'touchstart'], onDown)

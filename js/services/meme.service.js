@@ -73,7 +73,7 @@ let gImgs = [
 let gImgsFiltered = []
 
 let gMeme = {
-  selectedImgId: 2,
+  selectedImgId: 1,
   selectedLineIdx: 0,
   lines: [
     {
@@ -91,7 +91,7 @@ let gMeme = {
 let gStartPos
 let gIsDrag = false
 
-let gKeywordSearchCountMap = { fun: 1, funny: 3, man: 1, woman: 2 }
+// let gKeywordSearchCountMap = { fun: 1, funny: 3, man: 1, woman: 2 }
 
 function getMeme() {
   return gMeme
@@ -155,4 +155,24 @@ function doUploadImg(elForm, onSuccess) {
     .catch(function (err) {
       console.error(err)
     })
+}
+
+function resetMeme() {
+  gMeme = {
+    selectedImgId: 1,
+    selectedLineIdx: 0,
+    lines: [
+      {
+        txt: 'Text here ',
+        pos: { x: 0, y: 50 },
+        framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
+        size: 40,
+        borderColor: '#000000',
+        color: '#ffffff',
+        selected: true
+      }
+    ]
+  }
+
+  memeController(false)
 }

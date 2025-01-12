@@ -6,6 +6,8 @@ function onNav(page) {
   const allPages = ['gallery', 'meme-editor', 'saved', 'about']
   const pages = allPages.filter((p) => p !== page)
 
+  resetMeme()
+
   const isClassChange = document.querySelector('.change')
   if (isClassChange) menuOnClick()
 
