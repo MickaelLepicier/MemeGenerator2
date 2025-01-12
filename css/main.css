@@ -335,7 +335,7 @@ canvas {
 
   .edit-line img,
   .edit-txt img {
-    max-width: 5vw;
+    max-width: 3vw;
   }
 
   .txt-size-range {

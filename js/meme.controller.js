@@ -1,8 +1,13 @@
 'use strict'
 
 // TODOs
+// make btns smaller
+// fix bug - when size range the size num don't follow
+
 // fix bug - on mobile about the inputTxtFocus( - when focus the img dissapeer
-// fix bug - when size range the size num dont follow
+// make the text value on the search bar small
+// create saved page
+// create about page
 
 let gElCanvas
 let gCtx
@@ -17,6 +22,19 @@ function onMemeEditor() {
 
 function addEvListeners() {
   gElCanvas.addEventListener('mouseout', onUp)
+
+  const input = document.querySelector('.input-txt')
+  // const canvas = document.querySelector('canvas')
+
+  input.addEventListener('focus', () => {
+    // canvas.style.display = 'none'
+    console.log('sss: ')
+    // renderMeme()
+    // setTimeout(() => (canvas.style.display = 'block'), 0)
+
+    // setTimeout(() => renderMeme, 0)
+    setTimeout(() => onMemeEditor, 0)
+  })
 
   addListeners(['mousedown', 'touchstart'], onDown)
   addListeners(['mousemove', 'touchmove'], onMove)
@@ -40,10 +58,8 @@ function resizeCanvas() {
 }
 
 function memeController(isNav = true) {
-  const meme = getMeme()
-
-  renderMeme(meme)
-  renderEditor(meme)
+  renderMeme()
+  renderEditor()
 
   if (isNav) onNav('meme-editor')
 }
@@ -52,7 +68,8 @@ function clearCanvas() {
   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function renderMeme(meme) {
+function renderMeme() {
+  const meme = getMeme()
   const { selectedImgId, selectedLineIdx, lines } = meme
 
   const imgObj = gImgs.find((img) => img.id === selectedImgId)
@@ -148,7 +165,8 @@ function additionalOffset(num, percent, isPlus) {
   return newNum
 }
 
-function renderEditor(meme) {
+function renderEditor() {
+  const meme = getMeme()
   const { selectedLineIdx, lines } = meme
   if (!lines.length) return
 
@@ -176,8 +194,11 @@ function renderInputColors(borderColor, color) {
 }
 
 function renderInputSize(size) {
-  const elInputsTxtSize = document.querySelectorAll('.txt-size-container input')
-  elInputsTxtSize.forEach((input) => (input.value = size))
+  const elTxtSizeRange = document.querySelector('.txt-size-range')
+  const elTxtSizeNum = document.querySelector('.txt-size-num')
+
+  elTxtSizeRange.value = size
+  elTxtSizeNum.value = size
 }
 
 function onDown(ev) {
@@ -221,7 +242,7 @@ function onMove(ev) {
 
 function onUp(ev) {
   const allLinesUnselected = gMeme.lines.every((line) => !line.selected)
-  // inputTxtFocus(allLinesUnselected)
+  inputTxtFocus(allLinesUnselected)
 
   gIsDrag = false
   document.body.style.cursor = 'auto'
@@ -293,7 +314,7 @@ function onAddLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 
   selectCurrentLine()
-  // inputTxtFocus(false)
+  inputTxtFocus(false)
   memeController(false)
 }
 
@@ -305,7 +326,7 @@ function onSwitchLine() {
   }
 
   selectCurrentLine()
-  // inputTxtFocus(false)
+  inputTxtFocus(false)
   memeController(false)
 }
 
