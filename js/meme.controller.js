@@ -53,7 +53,7 @@ function addListeners(evTypes, func) {
 }
 
 function resizeCanvas() {
-  const elMeme = document.querySelector('.meme')
+  const elMeme = document.querySelector('canvas')
   gElCanvas.width = elMeme.offsetWidth
   gElCanvas.height = elMeme.offsetHeight
 }
