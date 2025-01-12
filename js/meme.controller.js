@@ -3,9 +3,9 @@
 // TODOs
 // make btns smaller
 // fix bug - when size range the size num don't follow
+// make the text value on the search bar small
 
 // fix bug - on mobile about the inputTxtFocus( - when focus the img dissapeer
-// make the text value on the search bar small
 // create saved page
 // create about page
 
@@ -23,19 +23,19 @@ function onMemeEditor() {
 function addEvListeners() {
   gElCanvas.addEventListener('mouseout', onUp)
 
-  const input = document.querySelector('.input-txt')
-  const canvas = document.querySelector('canvas')
+  // const input = document.querySelector('.input-txt')
+  // const canvas = document.querySelector('canvas')
 
-  input.addEventListener('focus', () => {
-    console.log('sss: ')
+  // input.addEventListener('focus', () => {
+  // console.log('sss: ')
 
-    // visibility:hidden
-    canvas.style.visibility = 'hidden'
-    setTimeout(() => (canvas.style.visibility = 'visible'), 0)
+  // visibility:hidden
+  // canvas.style.visibility = 'hidden'
+  // setTimeout(() => (canvas.style.visibility = 'visible'), 0)
 
-    // setTimeout(() => renderMeme, 0)
-    // setTimeout(() => onMemeEditor, 0)
-  })
+  // setTimeout(() => renderMeme, 0)
+  // setTimeout(() => onMemeEditor, 0)
+  // })
 
   addListeners(['mousedown', 'touchstart'], onDown)
   addListeners(['mousemove', 'touchmove'], onMove)
@@ -53,7 +53,8 @@ function addListeners(evTypes, func) {
 }
 
 function resizeCanvas() {
-  const elMeme = document.querySelector('canvas')
+  const elMeme = document.querySelector('.meme')
+  // const elMeme = document.querySelector('canvas')
   gElCanvas.width = elMeme.offsetWidth
   gElCanvas.height = elMeme.offsetHeight
 }
@@ -243,7 +244,7 @@ function onMove(ev) {
 
 function onUp(ev) {
   const allLinesUnselected = gMeme.lines.every((line) => !line.selected)
-  inputTxtFocus(allLinesUnselected)
+  // inputTxtFocus(allLinesUnselected)
 
   gIsDrag = false
   document.body.style.cursor = 'auto'
@@ -315,7 +316,7 @@ function onAddLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 
   selectCurrentLine()
-  inputTxtFocus(false)
+  // inputTxtFocus(false)
   memeController(false)
 }
 
@@ -327,7 +328,7 @@ function onSwitchLine() {
   }
 
   selectCurrentLine()
-  inputTxtFocus(false)
+  // inputTxtFocus(false)
   memeController(false)
 }
 

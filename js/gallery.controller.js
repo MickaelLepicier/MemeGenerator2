@@ -42,6 +42,8 @@ function onImgSelect(imgId) {
 }
 
 function onSearchKeyword(val) {
-  gImgsFiltered = gImgs.filter((img) => img.keywords.includes(val))
+  const value = val.toLowerCase()
+
+  gImgsFiltered = gImgs.filter((img) => img.keywords.includes(value))
   renderGallery()
 }
