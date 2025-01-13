@@ -37,6 +37,8 @@ function renderImg(img) {
 }
 
 function onImgSelect(imgId) {
+  resetMeme()
+
   setImg(imgId)
   memeController()
 }

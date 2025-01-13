@@ -6,10 +6,14 @@ function onNav(page) {
   const allPages = ['gallery', 'meme-editor', 'saved', 'about']
   const pages = allPages.filter((p) => p !== page)
 
-  resetMeme()
+  // resetMeme()
+  
 
+  // navbar animation
   const isClassChange = document.querySelector('.change')
   if (isClassChange) menuOnClick()
+
+  // console.log('gSaveMemes: ', gSaveMemes)
 
   hidePages(pages)
   showPage(page)
@@ -26,7 +30,6 @@ function hidePage(page) {
 
 function showPage(page) {
   const sectionEl = document.querySelector(`.${page}-page`)
-
   sectionEl.classList.remove('hidden')
 }
 

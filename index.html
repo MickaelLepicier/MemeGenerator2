@@ -157,12 +157,30 @@
               style="display: none"
             />
           </label>
+
+          <button class="btn" onclick="onSave(this)">Save</button>
         </section>
       </section>
     </section>
 
-    <section class="saved-page">Didn't make it yet</section>
-    <section class="about-page">Didn't make it yet</section>
+    <section class="saved-page">
+
+      <section class="saved-memes">
+        
+      </section>
+
+    </section>
+    <section class="about-page">
+      <h2>About</h2>
+      <p>This Meme Generator App is mainly about Anime.</p>
+      <p>
+        You can search for images that are made with AI or about a specific
+        Anime as Yugioh, Dragon ball z or Naruto.
+      </p>
+      <p>Enjoy!</p>
+    </section>
+
+    <div class="save-modal">Saved</div>
 
     <footer>Created by ©Mickael-Lepicier</footer>
 
@@ -172,5 +190,6 @@
 
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>
+    <script src="js/savedMeme.controller.js"></script>
   </body>
 </html>

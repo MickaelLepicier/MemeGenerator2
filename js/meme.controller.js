@@ -1,13 +1,12 @@
 'use strict'
 
 // TODOs
-// make btns smaller
-// fix bug - when size range the size num don't follow
-// make the text value on the search bar small
+// add 'There are not saved memes' to the saved page
+
+// make the focus just on the desktop and not on mobile
+// add to the function gMobile false return or somthing like that
 
 // fix bug - on mobile about the inputTxtFocus( - when focus the img dissapeer
-// create saved page
-// create about page
 
 let gElCanvas
 let gCtx
@@ -59,9 +58,11 @@ function resizeCanvas() {
   gElCanvas.height = elMeme.offsetHeight
 }
 
-function memeController(isNav = true) {
-  renderMeme()
-  renderEditor()
+function memeController(isNav = true, gSaveMemeIdx = false) {
+  const meme = checkMeme(gSaveMemeIdx)
+
+  renderMeme(meme)
+  renderEditor(meme)
 
   if (isNav) onNav('meme-editor')
 }
@@ -70,8 +71,7 @@ function clearCanvas() {
   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
 }
 
-function renderMeme() {
-  const meme = getMeme()
+function renderMeme(meme) {
   const { selectedImgId, selectedLineIdx, lines } = meme
 
   const imgObj = gImgs.find((img) => img.id === selectedImgId)
@@ -167,8 +167,7 @@ function additionalOffset(num, percent, isPlus) {
   return newNum
 }
 
-function renderEditor() {
-  const meme = getMeme()
+function renderEditor(meme) {
   const { selectedLineIdx, lines } = meme
   if (!lines.length) return
 
@@ -413,4 +412,32 @@ function shareMeme(elForm, ev) {
   }
 
   doUploadImg(elForm, onSuccess)
+}
+
+function onSave(elSave) {
+  // TODOs:
+  // when click on meme return to editor
+
+  const imgContent = gElCanvas.toDataURL('image/jpeg')
+
+  let savedMeme = {
+    imgContent,
+    gMeme: {
+      selectedImgId: gMeme.selectedImgId,
+      selectedLineIdx: gMeme.selectedLineIdx,
+      lines: gMeme.lines
+    }
+  }
+  gSaveMemes.push(savedMeme)
+
+  showModal()
+
+  renderSavedMeme()
+}
+
+function showModal() {
+  const elModal = document.querySelector('.save-modal')
+  elModal.style.opacity = 0.8
+
+  setTimeout(() => (elModal.style.opacity = 0), 1000)
 }

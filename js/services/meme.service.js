@@ -88,17 +88,33 @@ let gMeme = {
   ]
 }
 
+let gSaveMemes = []
+
 let gStartPos
 let gIsDrag = false
 
 // let gKeywordSearchCountMap = { fun: 1, funny: 3, man: 1, woman: 2 }
 
+function getImgs() {
+  return gImgsFiltered.length === 0 ? gImgs : gImgsFiltered
+}
+
 function getMeme() {
   return gMeme
 }
 
-function getImgs() {
-  return gImgsFiltered.length === 0 ? gImgs : gImgsFiltered
+function getSavedMeme() {
+  return gSaveMemes
+}
+// isGSaveMeme
+function checkMeme(gSaveMemeIdx) {
+  if (gSaveMemeIdx !== false || gSaveMemeIdx === 0) {
+    let gSaveMeme = getSavedMeme()
+    // debugger
+    return gSaveMeme[gSaveMemeIdx].gMeme
+  } else {
+    return getMeme()
+  }
 }
 
 function getLine() {
