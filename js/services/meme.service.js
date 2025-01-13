@@ -158,21 +158,18 @@ function doUploadImg(elForm, onSuccess) {
 }
 
 function resetMeme() {
-  gMeme = {
-    selectedImgId: 1,
-    selectedLineIdx: 0,
-    lines: [
-      {
-        txt: 'Text here ',
-        pos: { x: 0, y: 50 },
-        framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
-        size: 40,
-        borderColor: '#000000',
-        color: '#ffffff',
-        selected: true
-      }
-    ]
-  }
+  gMeme.selectedLineIdx = 0
+  gMeme.lines = [
+    {
+      txt: 'Text here ',
+      pos: { x: 0, y: 50 },
+      framePos: { xStart: 0, yStart: 0, xEnd: 0, yEnd: 0 },
+      size: 40,
+      borderColor: '#000000',
+      color: '#ffffff',
+      selected: true
+    }
+  ]
 
   memeController(false)
 }
