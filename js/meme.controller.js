@@ -1,11 +1,6 @@
 'use strict'
 
 // TODOs
-// add 'There are not saved memes' to the saved page
-// make the focus work again
-// or
-// make the focus just on the desktop and not on mobile
-// add to the function gMobile false return or somthing like that
 
 // fix bug - on mobile about the - img disappear
 
@@ -22,20 +17,6 @@ function onMemeEditor() {
 
 function addEvListeners() {
   gElCanvas.addEventListener('mouseout', onUp)
-
-  // const input = document.querySelector('.input-txt')
-  // const canvas = document.querySelector('canvas')
-
-  // input.addEventListener('focus', () => {
-  // console.log('sss: ')
-
-  // visibility:hidden
-  // canvas.style.visibility = 'hidden'
-  // setTimeout(() => (canvas.style.visibility = 'visible'), 0)
-
-  // setTimeout(() => renderMeme, 0)
-  // setTimeout(() => onMemeEditor, 0)
-  // })
 
   addListeners(['mousedown', 'touchstart'], onDown)
   addListeners(['mousemove', 'touchmove'], onMove)
@@ -342,9 +323,6 @@ function onDelete() {
 
   const idx = gMeme.selectedLineIdx
   gMeme.lines.splice(idx, 1)
-
-  //TODO fix bug - mybe the problem is with the idx
-  // console.log('lines: ', gMeme.lines)
 
   memeController()
 }
