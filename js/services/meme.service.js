@@ -104,11 +104,11 @@ function getMeme() {
 function getSavedMeme() {
   return gSaveMemes
 }
-// isGSaveMeme
+
 function checkMeme(gSaveMemeIdx) {
   if (gSaveMemeIdx !== false || gSaveMemeIdx === 0) {
     let gSaveMeme = getSavedMeme()
-    // debugger
+
     return gSaveMeme[gSaveMemeIdx].gMeme
   } else {
     return getMeme()

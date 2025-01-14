@@ -1,9 +1,5 @@
 'use strict'
 
-// TODOs
-
-// fix bug - on mobile about the - img disappear
-
 let gElCanvas
 let gCtx
 
@@ -23,7 +19,6 @@ function addEvListeners() {
   addListeners(['mouseup', 'touchend'], onUp)
 
   window.addEventListener('resize', () => {
-    // console.log('resize: ')
     resizeCanvas()
   })
 }
@@ -36,7 +31,6 @@ function addListeners(evTypes, func) {
 
 function resizeCanvas() {
   const elMeme = document.querySelector('.meme')
-  // const elMeme = document.querySelector('canvas')
   gElCanvas.width = elMeme.offsetWidth
   gElCanvas.height = elMeme.offsetHeight
 

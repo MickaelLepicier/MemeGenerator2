@@ -17,9 +17,10 @@ function renderSavedMeme() {
 
   elSavedMemes.innerHTML = strHtml
 }
-// test
+
 function onMemeSelect(idx) {
   const imgId = gSaveMemes[idx].gMeme.selectedImgId
+  gMeme = gSaveMemes[idx].gMeme
 
   setImg(imgId)
   memeController(true, idx)
