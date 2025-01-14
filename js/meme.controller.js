@@ -65,6 +65,8 @@ function resizeCanvas() {
 function memeController(isNav = false, gSaveMemeIdx = false) {
   const meme = checkMeme(gSaveMemeIdx)
 
+  console.log('on: ')
+
   renderMeme(meme)
   renderEditor(meme)
 
@@ -215,7 +217,6 @@ function onDown(ev) {
     memeController()
     return
   }
-
   gStartPos = pos
 
   selectCurrentLine()
@@ -418,7 +419,7 @@ function shareMeme(elForm, ev) {
   doUploadImg(elForm, onSuccess)
 }
 
-function onSave(elSave) {
+function onSave() {
   const imgContent = gElCanvas.toDataURL('image/jpeg')
 
   let savedMeme = {
