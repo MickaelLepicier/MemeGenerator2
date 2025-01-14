@@ -12,6 +12,8 @@ function onNav(page) {
 
   hidePages(pages)
   showPage(page)
+
+  memeController()
 }
 
 function hidePages(pages) {

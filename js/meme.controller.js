@@ -40,8 +40,6 @@ function resizeCanvas() {
 function memeController(isNav = false, gSaveMemeIdx = false) {
   const meme = checkMeme(gSaveMemeIdx)
 
-  console.log('on: ')
-
   renderMeme(meme)
   renderEditor(meme)
 
