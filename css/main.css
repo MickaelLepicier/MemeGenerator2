@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: grey;
+  background-color: darkblue;
 
   display: flex;
   flex-direction: column;
@@ -288,6 +288,16 @@ canvas {
   background-color: darkgreen;
 }
 
+.saved-page-msg {
+  max-width: 90vw;
+  font-size: 1.5em;
+  padding: 1em;
+
+  background-color: cadetblue;
+  border: 2px solid var(--border-and-hover);
+  border-radius: 10px;
+}
+
 .saved-meme-img {
   border-radius: 10px;
   margin-bottom: 2em;
@@ -417,6 +427,10 @@ footer {
 
   .txt-size-range {
     max-width: 50%;
+  }
+
+  .saved-page-msg {
+    font-size: 2em;
   }
 
   .saved-memes {

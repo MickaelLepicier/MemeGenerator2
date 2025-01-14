@@ -40,7 +40,7 @@ function onImgSelect(imgId) {
   resetMeme()
 
   setImg(imgId)
-  memeController()
+  memeController(true)
 }
 
 function onSearchKeyword(val) {

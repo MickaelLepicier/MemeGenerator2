@@ -2,11 +2,12 @@
 
 // TODOs
 // add 'There are not saved memes' to the saved page
-
+// make the focus work again
+// or
 // make the focus just on the desktop and not on mobile
 // add to the function gMobile false return or somthing like that
 
-// fix bug - on mobile about the inputTxtFocus( - when focus the img dissapeer
+// fix bug - on mobile about the - img disappear
 
 let gElCanvas
 let gCtx
@@ -41,6 +42,7 @@ function addEvListeners() {
   addListeners(['mouseup', 'touchend'], onUp)
 
   window.addEventListener('resize', () => {
+    // console.log('resize: ')
     resizeCanvas()
   })
 }
@@ -56,9 +58,11 @@ function resizeCanvas() {
   // const elMeme = document.querySelector('canvas')
   gElCanvas.width = elMeme.offsetWidth
   gElCanvas.height = elMeme.offsetHeight
+
+  memeController()
 }
 
-function memeController(isNav = true, gSaveMemeIdx = false) {
+function memeController(isNav = false, gSaveMemeIdx = false) {
   const meme = checkMeme(gSaveMemeIdx)
 
   renderMeme(meme)
@@ -208,7 +212,7 @@ function onDown(ev) {
   if (!isTxtClicked(pos)) {
     // remove the border of all the texts
     gMeme.lines.forEach((line) => (line.selected = false))
-    memeController(false)
+    memeController()
     return
   }
 
@@ -216,7 +220,7 @@ function onDown(ev) {
 
   selectCurrentLine()
 
-  memeController(false)
+  memeController()
 
   gIsDrag = true
   document.body.style.cursor = 'pointer'
@@ -236,14 +240,14 @@ function onMove(ev) {
 
   gStartPos = pos
 
-  memeController(false)
+  memeController()
 
   document.body.style.cursor = 'grabbing'
 }
 
 function onUp(ev) {
   const allLinesUnselected = gMeme.lines.every((line) => !line.selected)
-  // inputTxtFocus(allLinesUnselected)
+  inputTxtFocus(allLinesUnselected)
 
   gIsDrag = false
   document.body.style.cursor = 'auto'
@@ -276,21 +280,21 @@ function onColor(elColor) {
   const line = getLine()
   line.color = elColor.value
 
-  memeController(false)
+  memeController()
 }
 
 function onBorderColor(elColor) {
   const line = getLine()
   line.borderColor = elColor.value
 
-  memeController(false)
+  memeController()
 }
 
 function onSize(val) {
   const line = getLine()
   line.size = val
 
-  memeController(false)
+  memeController()
 }
 
 function onAddLine() {
@@ -315,8 +319,8 @@ function onAddLine() {
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 
   selectCurrentLine()
-  // inputTxtFocus(false)
-  memeController(false)
+  inputTxtFocus(false)
+  memeController()
 }
 
 function onSwitchLine() {
@@ -327,8 +331,8 @@ function onSwitchLine() {
   }
 
   selectCurrentLine()
-  // inputTxtFocus(false)
-  memeController(false)
+  inputTxtFocus(false)
+  memeController()
 }
 
 function onDelete() {
@@ -341,7 +345,7 @@ function onDelete() {
   //TODO fix bug - mybe the problem is with the idx
   // console.log('lines: ', gMeme.lines)
 
-  memeController(false)
+  memeController()
 }
 
 function inputTxtFocus(allLinesUnselected) {
@@ -376,7 +380,7 @@ function onTxtAlignment(direction) {
       break
   }
 
-  memeController(false)
+  memeController()
 }
 
 // ~ Upload Image ~ //
@@ -415,9 +419,6 @@ function shareMeme(elForm, ev) {
 }
 
 function onSave(elSave) {
-  // TODOs:
-  // when click on meme return to editor
-
   const imgContent = gElCanvas.toDataURL('image/jpeg')
 
   let savedMeme = {

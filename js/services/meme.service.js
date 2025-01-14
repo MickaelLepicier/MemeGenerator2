@@ -93,8 +93,6 @@ let gSaveMemes = []
 let gStartPos
 let gIsDrag = false
 
-// let gKeywordSearchCountMap = { fun: 1, funny: 3, man: 1, woman: 2 }
-
 function getImgs() {
   return gImgsFiltered.length === 0 ? gImgs : gImgsFiltered
 }
@@ -122,6 +120,8 @@ function getLine() {
 }
 
 function setTxt(val) {
+  if (!gMeme.lines.length) return
+
   const meme = getMeme()
   const lineIdx = gMeme.selectedLineIdx
 
