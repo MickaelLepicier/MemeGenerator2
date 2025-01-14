@@ -38,8 +38,6 @@ function menuOnClick() {
 
 // Utils Service
 
-// func - random color
-
 function makeId(length = 6) {
   const possible =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
